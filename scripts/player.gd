@@ -38,6 +38,8 @@ var knockback_direction: Vector2 = Vector2.ZERO
 
 @onready var hitbox: Area2D = $Sword/Node2D/Sprite2D/Hitbox
 
+@onready var hit_sound: AudioStreamPlayer2D = $HitSound
+
 @export var transformation_limit: float
 @onready var transformation_timer: Timer = $TransformationTimer
 var time_part: float = 1.0
@@ -206,9 +208,10 @@ func apply_knockback(direction_2: Vector2, force: float, knockback_duration: flo
 	
 	knockback_timer = knockback_duration
 
-# TODO: Adicionar asset de som
-# BUG: Só funciona ao tomar knockback: turret não afeta
+# the player has suffered damage
 func play_hit_feedback() -> void:
+		hit_sound.play() # temporary asset?
+	
 		if type_of_body == TYPE_TRANSFORM.HUMAN:
 			human_animated_sprite.modulate = Color(1,0,0.3)
 			await get_tree().create_timer(0.2).timeout
