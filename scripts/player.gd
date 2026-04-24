@@ -78,7 +78,7 @@ func _physics_process(delta: float) -> void:
 		velocity = knockback
 		
 		knockback_timer -= delta
-		
+				
 		if knockback_timer < 0.0:
 			knockback = Vector2.ZERO
 	else:	
@@ -135,7 +135,7 @@ func attack_melee(delta: float) -> void:
 	
 	if enemy_in_range and attack_timer >= attack_duration:
 		enemy.update_health(attack_basic)
-
+		
 		if enemy.get_scene_file_path() != "res://scenes/enemy/turret.tscn":
 			knockback_direction = (enemy.global_position - global_position).normalized()
 		
@@ -175,6 +175,7 @@ func update_health(value: float) -> void:
 			
 			time_part += value / 100
 		
+		play_hit_feedback()
 		emit_health_update.emit(health)
 
 
@@ -205,7 +206,18 @@ func apply_knockback(direction_2: Vector2, force: float, knockback_duration: flo
 	
 	knockback_timer = knockback_duration
 
-
+# TODO: Adicionar asset de som
+# BUG: Só funciona ao tomar knockback: turret não afeta
+func play_hit_feedback() -> void:
+		if type_of_body == TYPE_TRANSFORM.HUMAN:
+			human_animated_sprite.modulate = Color(1,0,0.3)
+			await get_tree().create_timer(0.2).timeout
+			human_animated_sprite.modulate = Color(1,1,1)
+		else:
+			robot_animated_sprite.modulate = Color(0.8,0,0.7)
+			await get_tree().create_timer(0.2).timeout
+			robot_animated_sprite.modulate = Color(1,1,1)
+		
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept") and transformation_timer.is_stopped():
 			change_to(TYPE_TRANSFORM.ROBOT)
