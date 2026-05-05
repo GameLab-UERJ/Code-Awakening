@@ -7,7 +7,7 @@ var type_of_body: TYPE_TRANSFORM
 @onready var robot_animated_sprite: AnimatedSprite2D = $RobotAnimatedSprite
 
 var speed: float = 4000.0
-var speed_multiplier: float = 1
+@export var speed_multiplier: float = 1
 var direction: Vector2 = Vector2.ZERO
 var last_direction: Vector2 = Vector2.ZERO
 
@@ -22,7 +22,6 @@ var health_limit: float
 var energy_limit: float
 
 var is_dead: bool = false
-var has_ever_died: bool = false
 
 @export var attack_basic: float
 var attack_timer: float = 0.0
@@ -53,10 +52,7 @@ func _ready() -> void:
 	
 	change_to(TYPE_TRANSFORM.HUMAN)
 	change_player_speed()
-	print(speed_multiplier)
-	print(has_ever_died)
-	print(is_dead)
-	
+				
 	health_limit = health
 	
 	energy_limit = energy
@@ -78,8 +74,8 @@ func change_to(type_transformation : TYPE_TRANSFORM = TYPE_TRANSFORM.ROBOT) -> v
 	
 # change this to match if it gets messy
 func change_player_speed() -> void:
-	if current_scene.name == "lab_inicial" and has_ever_died == true:
-		speed_multiplier = 1.5
+	if current_scene.name == "lab_inicial" and Global.has_ever_died == true:
+		speed_multiplier = 5.0
 	else:
 		pass		
 	
@@ -194,8 +190,8 @@ func update_health(value: float) -> void:
 func die() -> void:
 	if health <= 0 and not is_dead:
 		is_dead = true
-		has_ever_died = true
-		
+		Global.has_ever_died = true
+				
 		animated_sprite.play("die")
 
 
