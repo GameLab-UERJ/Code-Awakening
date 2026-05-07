@@ -44,8 +44,8 @@ func _ready() -> void:
 	
 	pick_random_direction()
 
-
 func _physics_process(delta: float) -> void:	
+	# drone received knockback while dying
 	if is_dead:
 		return
 		
@@ -98,9 +98,12 @@ func pick_random_direction() -> void:
 		new_direction = Vector2(randi() % 3 - 1, randi() % 3 - 1)
 	
 	last_direction = new_direction # Update last direction
-	print(animated_sprite_2d.animation)
-
+	
 func update_animation(direction: Vector2, swooping: bool = false) -> void:	
+	# death animation has started
+	if is_dead:
+		return
+	
 	if player_in_range and swooping:
 		animated_sprite_2d.play("drone_attack")
 		
@@ -128,7 +131,6 @@ func update_animation(direction: Vector2, swooping: bool = false) -> void:
 		animated_sprite_2d.flip_h = last_direction.x < 0
 	
 	return
-
 
 func attack_melee(delta: float) -> void:
 	if is_attacking:
@@ -205,7 +207,7 @@ func die() -> void:
 		knockback = Vector2.ZERO
 		
 		animated_sprite_2d.play("drone_die")
-		
+				
 			
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if animated_sprite_2d.animation == "drone_die":

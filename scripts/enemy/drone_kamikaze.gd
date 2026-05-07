@@ -22,6 +22,8 @@ var player_in_range = false
 @export var health: float
 @onready var health_bar: ProgressBar = $HealthBar
 
+var is_dead: bool = false
+
 @export var attack_basic: float
 var is_attacking: bool = false
 var attack_timer: float = 0.0 # Timer in seconds to damage player
@@ -45,11 +47,8 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if health <= 0: # Skip animation update and kill the enemyrsr
-		shadow.visible = false
-		
-		animated_sprite_2d.play("drone_die")
-		
+	# drone received knockback while dying
+	if is_dead:
 		return
 	
 	if knockback_timer > 0.0:
@@ -105,6 +104,9 @@ func pick_random_direction() -> void:
 
 
 func update_animation(direction: Vector2, swooping: bool = false) -> void:
+	# death animation has started
+	if is_dead:
+		return
 
 	if player_in_range and swooping:
 		animated_sprite_2d.play("drone_attack")
@@ -199,7 +201,20 @@ func update_health(value: int) -> void:
 		health_bar.visible = false
 	else:
 		health_bar.visible = true
+		
+	if health <= 0:
+		die()
 
+func die() -> void:
+	if not is_dead:
+		is_dead = true
+		
+		shadow.visible = false
+		velocity = Vector2.ZERO
+		knockback = Vector2.ZERO
+		
+		animated_sprite_2d.play("drone_die")
+		
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if animated_sprite_2d.animation == "drone_die":
