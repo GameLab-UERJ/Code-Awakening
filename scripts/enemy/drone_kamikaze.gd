@@ -23,6 +23,7 @@ var player_in_range = false
 @onready var health_bar: ProgressBar = $HealthBar
 
 var is_dead: bool = false
+var is_exploding: bool = false
 
 @export var attack_basic: float
 var is_attacking: bool = false
@@ -47,7 +48,6 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	# drone received knockback while dying
 	if is_dead:
 		return
 	
@@ -105,7 +105,7 @@ func pick_random_direction() -> void:
 
 func update_animation(direction: Vector2, swooping: bool = false) -> void:
 	# death animation has started
-	if is_dead:
+	if is_exploding or is_dead:
 		return
 
 	if player_in_range and swooping:
@@ -144,7 +144,7 @@ func attack_melee(delta: float) -> void:
 	if attack_timer >= attack_duration:
 		if player_in_range:
 			player.update_health(attack_basic)
-			
+						
 			knockback_direction = (player.global_position - global_position).normalized()
 		
 			player.apply_knockback(knockback_direction, 100, 0.5)
@@ -153,16 +153,19 @@ func attack_melee(delta: float) -> void:
 
 
 func _on_drone_melee_hitbox_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Player"):
+	if body.is_in_group("Player") and not is_exploding:
 		player_in_range = true
 		
 		is_attacking = true
 		
 		swoop_speed = 0
+		
+		is_exploding = true
+		animated_sprite_2d.play("drone_attack")
 
 
 func _on_drone_melee_hitbox_body_exited(body: Node2D) -> void:
-	if body.is_in_group("Player"):
+	if body.is_in_group("Player") and not is_exploding:
 		player_in_range = false
 		
 		is_attacking = false
@@ -228,6 +231,9 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 
 
 func apply_knockback(direction: Vector2, force: float, knockback_duration: float) -> void:
+	if is_exploding or is_dead:
+		return
+	
 	knockback = direction * force
 	
 	knockback_timer = knockback_duration
