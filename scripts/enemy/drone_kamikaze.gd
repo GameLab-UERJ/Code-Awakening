@@ -105,6 +105,7 @@ func pick_random_direction() -> void:
 
 
 func update_animation(direction: Vector2, swooping: bool = false) -> void:
+
 	if player_in_range and swooping:
 		animated_sprite_2d.play("drone_attack")
 		

@@ -27,6 +27,8 @@ var is_attacking: bool = false
 var attack_timer: float = 0.0 # Timer in seconds to damage player
 @export var attack_duration: float
 
+var is_dead: bool = false
+
 var knockback: Vector2 = Vector2.ZERO
 var knockback_timer: float = 0.0
 var knockback_direction: Vector2 = Vector2.ZERO
@@ -34,7 +36,6 @@ var knockback_direction: Vector2 = Vector2.ZERO
 @onready var timer: Timer = $Timer
 
 @onready var drop_item: DropItem = $DropItem
-
 
 func _ready() -> void:
 	add_to_group("Enemy")
@@ -45,11 +46,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:	
-	if health <= 0: # Skip animation update and kill the enemy
-		shadow.visible = false
-		
-		animated_sprite_2d.play("drone_die")
-		
+	if is_dead:
 		return
 		
 	if knockback_timer > 0.0:
@@ -101,9 +98,9 @@ func pick_random_direction() -> void:
 		new_direction = Vector2(randi() % 3 - 1, randi() % 3 - 1)
 	
 	last_direction = new_direction # Update last direction
+	print(animated_sprite_2d.animation)
 
-
-func update_animation(direction: Vector2, swooping: bool = false) -> void:
+func update_animation(direction: Vector2, swooping: bool = false) -> void:	
 	if player_in_range and swooping:
 		animated_sprite_2d.play("drone_attack")
 		
@@ -195,8 +192,21 @@ func update_health(value: int) -> void:
 		health_bar.visible = false
 	else:
 		health_bar.visible = true
-
-
+	
+	if health <= 0:
+		die()
+	
+func die() -> void:
+	if not is_dead:
+		is_dead = true
+		shadow.visible = false
+		
+		velocity = Vector2.ZERO
+		knockback = Vector2.ZERO
+		
+		animated_sprite_2d.play("drone_die")
+		
+			
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if animated_sprite_2d.animation == "drone_die":
 		if drop_item.item_drop.size() > 0:
@@ -205,7 +215,6 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 			drop_item._drop_item()
 		
 		queue_free()
-		
 
 
 func apply_knockback(direction: Vector2, force: float, knockback_duration: float) -> void:

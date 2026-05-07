@@ -1,15 +1,15 @@
-[gd_scene load_steps=41 format=3 uid="uid://2gsqbp63mciw"]
+[gd_scene format=3 uid="uid://2gsqbp63mciw"]
 
 [ext_resource type="Script" uid="uid://j734hducc7g2" path="res://scripts/enemy/drone_melee.gd" id="1_dcoha"]
-[ext_resource type="Texture2D" uid="uid://4innee08rhoc" path="res://assets/enemy/enemy drones/elec_drone_atk.png" id="2_dcoha"]
-[ext_resource type="Texture2D" uid="uid://bev4juryhp0bn" path="res://assets/enemy/enemy drones/elec_drone_death.png" id="2_v52ds"]
-[ext_resource type="Texture2D" uid="uid://bj3ablleshg0y" path="res://assets/enemy/enemy drones/elec_drone_charging.png" id="3_v52ds"]
-[ext_resource type="Texture2D" uid="uid://c30hnkfqmylsy" path="res://assets/enemy/explosion.png" id="4_7juch"]
-[ext_resource type="Texture2D" uid="uid://eqiqnfv5uk2g" path="res://assets/enemy/enemy drones/elec_drone_idle.png" id="4_dcoha"]
+[ext_resource type="Texture2D" uid="uid://4innee08rhoc" path="res://Assets/enemy/enemy drones/elec_drone_atk.png" id="2_dcoha"]
+[ext_resource type="Texture2D" uid="uid://bev4juryhp0bn" path="res://Assets/enemy/enemy drones/elec_drone_death.png" id="2_v52ds"]
+[ext_resource type="Texture2D" uid="uid://bj3ablleshg0y" path="res://Assets/enemy/enemy drones/elec_drone_charging.png" id="3_v52ds"]
+[ext_resource type="Texture2D" uid="uid://c30hnkfqmylsy" path="res://Assets/enemy/explosion.png" id="4_7juch"]
+[ext_resource type="Texture2D" uid="uid://eqiqnfv5uk2g" path="res://Assets/enemy/enemy drones/elec_drone_idle.png" id="4_dcoha"]
 [ext_resource type="Script" uid="uid://b2wt5876yigsh" path="res://scripts/itens/drop_item.gd" id="7_sbyoj"]
 [ext_resource type="PackedScene" uid="uid://btgem6t5njodn" path="res://scenes/itens/energy_gem.tscn" id="8_kjbmo"]
 [ext_resource type="PackedScene" uid="uid://djjnr6veblc63" path="res://scenes/itens/health_gem.tscn" id="9_1xli0"]
-[ext_resource type="Texture2D" uid="uid://dmgcogjh3wh8w" path="res://assets/enemy/Shadow.png" id="10_1xli0"]
+[ext_resource type="Texture2D" uid="uid://dmgcogjh3wh8w" path="res://Assets/enemy/Shadow.png" id="10_1xli0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7juch"]
 atlas = ExtResource("2_dcoha")
@@ -225,7 +225,7 @@ radius = 8.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_lnmnu"]
 radius = 38.0
 
-[node name="DroneMelee" type="CharacterBody2D"]
+[node name="DroneMelee" type="CharacterBody2D" unique_id=468293005]
 z_index = 2
 y_sort_enabled = true
 collision_layer = 4
@@ -235,33 +235,33 @@ health = 60.0
 attack_basic = -10.0
 attack_duration = 0.5
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1573933011]
 scale = Vector2(0.875, 0.875)
 sprite_frames = SubResource("SpriteFrames_mucbb")
-animation = &"move_right"
+animation = &"drone_die"
 autoplay = "move_up"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1655609940]
 visible = false
 position = Vector2(0, -2)
 shape = SubResource("CircleShape2D_dcoha")
 
-[node name="DroneMeleeHitbox" type="Area2D" parent="."]
+[node name="DroneMeleeHitbox" type="Area2D" parent="." unique_id=349961545]
 collision_layer = 2
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DroneMeleeHitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DroneMeleeHitbox" unique_id=1614553406]
 position = Vector2(0, -2)
 shape = SubResource("CircleShape2D_7d178")
 
-[node name="Territory" type="Area2D" parent="."]
+[node name="Territory" type="Area2D" parent="." unique_id=185998543]
 collision_layer = 2
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Territory"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Territory" unique_id=1247145338]
 shape = SubResource("CircleShape2D_lnmnu")
 
-[node name="HealthBar" type="ProgressBar" parent="."]
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=204724114]
 modulate = Color(0.721569, 1, 0.223529, 1)
 z_index = 5
 offset_left = -9.0
@@ -272,14 +272,14 @@ max_value = 60.0
 fill_mode = 1
 show_percentage = false
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=1584131981]
 
-[node name="DropItem" type="Node2D" parent="."]
+[node name="DropItem" type="Node2D" parent="." unique_id=381451792]
 script = ExtResource("7_sbyoj")
 item_drop = Array[PackedScene]([ExtResource("8_kjbmo"), ExtResource("9_1xli0")])
 item_drop_chances = Array[float]([30.0, 30.0, 40.0])
 
-[node name="Shadow" type="Sprite2D" parent="."]
+[node name="Shadow" type="Sprite2D" parent="." unique_id=1763178354]
 z_index = 15
 z_as_relative = false
 position = Vector2(-1, 4)
