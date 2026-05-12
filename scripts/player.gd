@@ -7,6 +7,7 @@ var type_of_body: TYPE_TRANSFORM
 @onready var robot_animated_sprite: AnimatedSprite2D = $RobotAnimatedSprite
 
 var speed: float = 4000.0
+@export var speed_multiplier: float = 1
 var direction: Vector2 = Vector2.ZERO
 var last_direction: Vector2 = Vector2.ZERO
 
@@ -44,17 +45,19 @@ var knockback_direction: Vector2 = Vector2.ZERO
 @onready var transformation_timer: Timer = $TransformationTimer
 var time_part: float = 1.0
 
+@onready var current_scene = get_parent()
 
 func _ready() -> void:
 	add_to_group("Player")
 	
 	change_to(TYPE_TRANSFORM.HUMAN)
-	
+	change_player_speed()
+				
 	health_limit = health
 	
 	energy_limit = energy
 	
-
+	
 func change_to(type_transformation : TYPE_TRANSFORM = TYPE_TRANSFORM.ROBOT) -> void:
 	if type_transformation == TYPE_TRANSFORM.ROBOT:
 		human_animated_sprite.visible = false
@@ -69,6 +72,12 @@ func change_to(type_transformation : TYPE_TRANSFORM = TYPE_TRANSFORM.ROBOT) -> v
 		
 	animated_sprite.visible = true
 	
+# change this to match if it gets messy
+func change_player_speed() -> void:
+	if current_scene.name == "lab_inicial" and Global.has_ever_died == true:
+		speed_multiplier = 5.0
+	else:
+		pass		
 	
 func _physics_process(delta: float) -> void:
 	die()
@@ -90,7 +99,7 @@ func _physics_process(delta: float) -> void:
 		# As good practice, you should replace UI actions with custom gameplay actions.
 		direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 		
-		velocity = direction * speed * delta
+		velocity = direction * speed * delta * speed_multiplier
 		
 		if direction != Vector2.ZERO:
 			last_direction = direction
@@ -104,7 +113,6 @@ func _physics_process(delta: float) -> void:
 	update_energy_transformation()
 	
 	move_and_slide()
-
 
 func update_animation() -> void:
 	# invert direction do sprite righ to left
@@ -161,7 +169,6 @@ func _on_hitbox_body_exited(body: Node2D) -> void:
 		
 		attack_timer = 0
 
-
 func update_health(value: float) -> void:
 	if health <= health_limit and health >= 0.0:
 		if (health + value) > energy_limit:
@@ -181,11 +188,11 @@ func update_health(value: float) -> void:
 		
 		emit_health_update.emit(health)
 
-
 func die() -> void:
 	if health <= 0 and not is_dead:
 		is_dead = true
-		
+		Global.has_ever_died = true
+				
 		animated_sprite.play("die")
 		
 func _on_human_animated_sprite_animation_finished() -> void:
@@ -220,22 +227,24 @@ func play_hit_feedback() -> void:
 			robot_animated_sprite.modulate = Color(0.8,0,0.7)
 			await get_tree().create_timer(0.2).timeout
 			robot_animated_sprite.modulate = Color(1,1,1)
-		
+
+# player has transformed		
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept") and transformation_timer.is_stopped():
+		if current_scene.name == "lab_inicial":
+			pass
+		else:
 			change_to(TYPE_TRANSFORM.ROBOT)
 			
 			attack_basic *= 2
 			
 			transformation_timer.start(transformation_limit * time_part)
 
-
 func update_energy_transformation(value: float = -10.0) -> void:
 	if type_of_body == TYPE_TRANSFORM.ROBOT:
 		if transformation_timer.time_left + 0.1 <= transformation_limit * (time_part - 0.1):
 			update_energy(value)
  
-
 func update_energy(value: float = -10.0) -> void:
 	if energy <= energy_limit and energy >= 0.0:
 		if (energy + value) > energy_limit:
@@ -263,11 +272,9 @@ func _on_change_timer_timeout() -> void:
 	
 	attack_basic *= 1
 
-
 func is_attacking() -> bool:
 	return Input.is_action_just_pressed("attack")
 	
-
 func handle_sword_direction() -> void:
 	if not sword_animation_player.is_playing():
 		sword.hide()
