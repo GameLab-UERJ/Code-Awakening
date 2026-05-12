@@ -1,13 +1,14 @@
-[gd_scene load_steps=72 format=3 uid="uid://mdocp85nn4l6"]
+[gd_scene format=3 uid="uid://mdocp85nn4l6"]
 
-[ext_resource type="Texture2D" uid="uid://bs2aoytl33ntq" path="res://assets/character/bogan_sprites.png" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://bs2aoytl33ntq" path="res://Assets/character/bogan_sprites.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://bjm6q18wihdhh" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://cfdrdlofc321u" path="res://Assets/Player/weapon_sword_1.png" id="3_7glgm"]
 [ext_resource type="Texture2D" uid="uid://dags36jvx7a7p" path="res://Assets/Player/hurt.png" id="3_mc0om"]
 [ext_resource type="Texture2D" uid="uid://flkg1morayxd" path="res://Assets/Player/idle.png" id="4_uorc5"]
 [ext_resource type="Texture2D" uid="uid://dfjxbbk51sxjo" path="res://Assets/Player/run.png" id="5_m061u"]
 [ext_resource type="Texture2D" uid="uid://bkctw85hhktkk" path="res://Assets/Player/effect_player/slash_effect_anim_spritesheet.png" id="5_tj3i7"]
-[ext_resource type="Texture2D" uid="uid://dmgcogjh3wh8w" path="res://assets/enemy/Shadow.png" id="8_smehm"]
+[ext_resource type="Texture2D" uid="uid://dmgcogjh3wh8w" path="res://Assets/enemy/Shadow.png" id="8_smehm"]
+[ext_resource type="AudioStream" uid="uid://c1rmukl1u783o" path="res://Assets/sounds/splat_quick.wav" id="9_ur7pv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dt7fs"]
 atlas = ExtResource("1_3vyb7")
@@ -724,7 +725,7 @@ _data = {
 &"attack": SubResource("Animation_eb0w2")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite")]
+[node name="Player" type="CharacterBody2D" unique_id=445274170 node_paths=PackedStringArray("animated_sprite")]
 z_index = 1
 y_sort_enabled = true
 collision_layer = 3
@@ -735,64 +736,65 @@ attack_duration = 0.04
 animated_sprite = NodePath("RobotAnimatedSprite")
 transformation_limit = 10.0
 
-[node name="HumanAnimatedSprite" type="AnimatedSprite2D" parent="."]
+[node name="HumanAnimatedSprite" type="AnimatedSprite2D" parent="." unique_id=1896813536]
 sprite_frames = SubResource("SpriteFrames_fjrip")
 animation = &"idle_down"
 autoplay = "idle_down"
 
-[node name="RobotAnimatedSprite" type="AnimatedSprite2D" parent="."]
+[node name="RobotAnimatedSprite" type="AnimatedSprite2D" parent="." unique_id=1445762992]
 visible = false
 sprite_frames = SubResource("SpriteFrames_co1kl")
 animation = &"idle_right"
 autoplay = "idle_down"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1092641796]
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_g2els")
 
-[node name="Sword" type="Node2D" parent="."]
+[node name="Sword" type="Node2D" parent="." unique_id=498369333]
 
-[node name="Node2D" type="Node2D" parent="Sword"]
+[node name="Node2D" type="Node2D" parent="Sword" unique_id=914106332]
 position = Vector2(0, -1)
 rotation = -1.5708
 
-[node name="Sprite2D" type="Sprite2D" parent="Sword/Node2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Sword/Node2D" unique_id=1255710950]
 visible = false
 position = Vector2(7.99999, 3.00003)
 rotation = -0.785398
 texture = ExtResource("3_7glgm")
 offset = Vector2(5, -4)
 
-[node name="Hitbox" type="Area2D" parent="Sword/Node2D/Sprite2D"]
+[node name="Hitbox" type="Area2D" parent="Sword/Node2D/Sprite2D" unique_id=428487691]
 collision_layer = 0
 collision_mask = 5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sword/Node2D/Sprite2D/Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sword/Node2D/Sprite2D/Hitbox" unique_id=771522519]
 position = Vector2(6.36398, -4.94973)
 rotation = 0.785398
 shape = SubResource("CapsuleShape2D_mc0om")
 
-[node name="SlashSprite" type="Sprite2D" parent="Sword"]
+[node name="SlashSprite" type="Sprite2D" parent="Sword" unique_id=1865574429]
 visible = false
 position = Vector2(18, 0)
 texture = ExtResource("5_tj3i7")
 hframes = 3
 
-[node name="SwordAnimationPlayer" type="AnimationPlayer" parent="Sword"]
+[node name="SwordAnimationPlayer" type="AnimationPlayer" parent="Sword" unique_id=160815564]
 root_node = NodePath("../Node2D")
-libraries = {
-&"": SubResource("AnimationLibrary_l38hm")
-}
+libraries/ = SubResource("AnimationLibrary_l38hm")
 
-[node name="TransformationTimer" type="Timer" parent="."]
+[node name="TransformationTimer" type="Timer" parent="." unique_id=332843961]
 
-[node name="Shadow" type="Sprite2D" parent="."]
+[node name="Shadow" type="Sprite2D" parent="." unique_id=1152915536]
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true
 position = Vector2(-1, -2.66667)
 scale = Vector2(0.916667, 0.916667)
 texture = ExtResource("8_smehm")
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="." unique_id=887679140]
+stream = ExtResource("9_ur7pv")
 
 [connection signal="animation_finished" from="HumanAnimatedSprite" to="." method="_on_human_animated_sprite_animation_finished"]
 [connection signal="animation_finished" from="RobotAnimatedSprite" to="." method="_on_robot_animated_sprite_animation_finished"]

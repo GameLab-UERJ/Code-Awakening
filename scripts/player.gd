@@ -38,6 +38,8 @@ var knockback_direction: Vector2 = Vector2.ZERO
 
 @onready var hitbox: Area2D = $Sword/Node2D/Sprite2D/Hitbox
 
+@onready var hit_sound: AudioStreamPlayer2D = $HitSound
+
 @export var transformation_limit: float
 @onready var transformation_timer: Timer = $TransformationTimer
 var time_part: float = 1.0
@@ -78,7 +80,7 @@ func _physics_process(delta: float) -> void:
 		velocity = knockback
 		
 		knockback_timer -= delta
-		
+				
 		if knockback_timer < 0.0:
 			knockback = Vector2.ZERO
 	else:	
@@ -135,7 +137,7 @@ func attack_melee(delta: float) -> void:
 	
 	if enemy_in_range and attack_timer >= attack_duration:
 		enemy.update_health(attack_basic)
-
+		
 		if enemy.get_scene_file_path() != "res://scenes/enemy/turret.tscn":
 			knockback_direction = (enemy.global_position - global_position).normalized()
 		
@@ -171,6 +173,8 @@ func update_health(value: float) -> void:
 			
 			time_part = 0.0
 		else:
+			if value < 0:
+				play_hit_feedback()			
 			health += value
 			
 			time_part += value / 100
@@ -183,8 +187,7 @@ func die() -> void:
 		is_dead = true
 		
 		animated_sprite.play("die")
-
-
+		
 func _on_human_animated_sprite_animation_finished() -> void:
 	if animated_sprite.animation == "die":
 		
@@ -205,7 +208,19 @@ func apply_knockback(direction_2: Vector2, force: float, knockback_duration: flo
 	
 	knockback_timer = knockback_duration
 
-
+# the player has suffered damage
+func play_hit_feedback() -> void:
+		hit_sound.play() # temporary asset?
+	
+		if type_of_body == TYPE_TRANSFORM.HUMAN:
+			human_animated_sprite.modulate = Color(1,0,0.3)
+			await get_tree().create_timer(0.2).timeout
+			human_animated_sprite.modulate = Color(1,1,1)
+		else:
+			robot_animated_sprite.modulate = Color(0.8,0,0.7)
+			await get_tree().create_timer(0.2).timeout
+			robot_animated_sprite.modulate = Color(1,1,1)
+		
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept") and transformation_timer.is_stopped():
 			change_to(TYPE_TRANSFORM.ROBOT)

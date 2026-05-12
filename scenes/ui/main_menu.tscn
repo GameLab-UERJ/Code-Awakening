@@ -1,9 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://c5il80e5onj2u"]
+[gd_scene format=3 uid="uid://c5il80e5onj2u"]
 
 [ext_resource type="Script" uid="uid://c64tt5k7ta6i0" path="res://scripts/ui/main_menu.gd" id="1_bqqt6"]
-[ext_resource type="Texture2D" uid="uid://bok5k5tu748p2" path="res://assets/ui/tutorial-lab.png" id="1_l6cm7"]
-[ext_resource type="FontFile" uid="uid://neecrem67in6" path="res://assets/fonts/CyberpunkCraftpixPixel.otf" id="2_ekxnf"]
-[ext_resource type="AudioStream" uid="uid://c8tj6nmoacdf1" path="res://assets/sounds/menu_sounds/Pixel 10.mp3" id="4_wu84c"]
+[ext_resource type="Texture2D" uid="uid://dra5ygbq2tnc2" path="res://Assets/UI/tutorial-lab.png" id="1_l6cm7"]
+[ext_resource type="FontFile" uid="uid://neecrem67in6" path="res://Assets/fonts/CyberpunkCraftpixPixel.otf" id="2_ekxnf"]
+[ext_resource type="AudioStream" uid="uid://c8tj6nmoacdf1" path="res://Assets/sounds/menu_sounds/Pixel 10.mp3" id="4_wu84c"]
 [ext_resource type="Script" uid="uid://bxtwg84krn62m" path="res://scripts/ui/audio_crontrol.gd" id="5_8ln24"]
 [ext_resource type="Script" uid="uid://c3om2gr6iab6b" path="res://scripts/ui/fullscreen_control.gd" id="6_rtw2f"]
 
@@ -12,10 +12,8 @@ texture = ExtResource("1_l6cm7")
 region_rect = Rect2(77, 33.7, 848.2, 486.2)
 modulate_color = Color(0.593134, 0.593134, 0.593134, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ekxnf"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekxnf"]
-bg_color = Color(0.868985, 0.868985, 0.868985, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vue75"]
+bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -34,8 +32,8 @@ shadow_color = Color(0.0338533, 0.0338533, 0.0338533, 0.34902)
 shadow_size = 8
 shadow_offset = Vector2(-5, 5)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vue75"]
-bg_color = Color(1, 1, 1, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekxnf"]
+bg_color = Color(0.868985, 0.868985, 0.868985, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -43,6 +41,8 @@ corner_radius_bottom_left = 16
 shadow_color = Color(0.0338533, 0.0338533, 0.0338533, 0.34902)
 shadow_size = 8
 shadow_offset = Vector2(-5, 5)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ekxnf"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_wu84c"]
 color = Color(1, 1, 1, 1)
@@ -54,7 +54,7 @@ thickness = 6
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rtw2f"]
 
-[node name="Main_menu" type="Control"]
+[node name="Main_menu" type="Control" unique_id=1363070423]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,7 +63,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bqqt6")
 
-[node name="Background" type="Panel" parent="."]
+[node name="Background" type="Panel" parent="." unique_id=1625145607]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -72,7 +72,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_ekxnf")
 
-[node name="GameTitle" type="Label" parent="."]
+[node name="GameTitle" type="Label" parent="." unique_id=1972060884]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -96,7 +96,7 @@ Awakening"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Main_buttons" type="VBoxContainer" parent="."]
+[node name="Main_buttons" type="VBoxContainer" parent="." unique_id=567145900]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -112,73 +112,73 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 8
 
-[node name="StartGame" type="Button" parent="Main_buttons"]
+[node name="StartGame" type="Button" parent="Main_buttons" unique_id=2117661682]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0.0430392, 0.0430392, 0.0430392, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 24
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ekxnf")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ekxnf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_bqqt6")
 theme_override_styles/normal = SubResource("StyleBoxFlat_vue75")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bqqt6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ekxnf")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ekxnf")
 text = "Start game"
 
-[node name="Options" type="Button" parent="Main_buttons"]
+[node name="Options" type="Button" parent="Main_buttons" unique_id=617996689]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0.0430392, 0.0430392, 0.0430392, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 24
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ekxnf")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ekxnf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_bqqt6")
 theme_override_styles/normal = SubResource("StyleBoxFlat_vue75")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bqqt6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ekxnf")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ekxnf")
 text = "Options"
 
-[node name="Credits" type="Button" parent="Main_buttons"]
+[node name="Credits" type="Button" parent="Main_buttons" unique_id=989398941]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0.0430392, 0.0430392, 0.0430392, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 24
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ekxnf")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ekxnf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_bqqt6")
 theme_override_styles/normal = SubResource("StyleBoxFlat_vue75")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bqqt6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ekxnf")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ekxnf")
 text = "Credits"
 
-[node name="Exit" type="Button" parent="Main_buttons"]
+[node name="Exit" type="Button" parent="Main_buttons" unique_id=1327980371]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0.0430392, 0.0430392, 0.0430392, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 24
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ekxnf")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ekxnf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_bqqt6")
 theme_override_styles/normal = SubResource("StyleBoxFlat_vue75")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bqqt6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ekxnf")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ekxnf")
 text = "Exit"
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=366454899]
 position = Vector2(477, 486.5)
 stream = ExtResource("4_wu84c")
 autoplay = true
 bus = &"Music"
 
-[node name="Options" type="Panel" parent="."]
+[node name="Options" type="Panel" parent="." unique_id=720927695]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -193,7 +193,7 @@ offset_bottom = 255.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Back" type="Button" parent="Options"]
+[node name="Back" type="Button" parent="Options" unique_id=451727412]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -207,19 +207,19 @@ offset_bottom = 125.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0.0430392, 0.0430392, 0.0430392, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 24
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ekxnf")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ekxnf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_bqqt6")
 theme_override_styles/normal = SubResource("StyleBoxFlat_vue75")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bqqt6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ekxnf")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ekxnf")
 text = "Back"
 
-[node name="OptionsTitle" type="Label" parent="Options"]
+[node name="OptionsTitle" type="Label" parent="Options" unique_id=1684372815]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -231,7 +231,7 @@ text = "Options"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Options"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Options" unique_id=1631442113]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -246,12 +246,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 18
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Options/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Options/VBoxContainer" unique_id=800306798]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="Options/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="Options/VBoxContainer/HBoxContainer" unique_id=227842479]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 20
@@ -259,7 +259,7 @@ text = "Music volume"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MusicVolume" type="HSlider" parent="Options/VBoxContainer/HBoxContainer"]
+[node name="MusicVolume" type="HSlider" parent="Options/VBoxContainer/HBoxContainer" unique_id=86650557]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/slider = SubResource("StyleBoxLine_wu84c")
@@ -270,12 +270,12 @@ step = 0.05
 value = 0.5
 script = ExtResource("5_8ln24")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Options/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Options/VBoxContainer" unique_id=1538520147]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 31
 
-[node name="Label" type="Label" parent="Options/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="Options/VBoxContainer/HBoxContainer2" unique_id=1692997568]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 20
@@ -283,7 +283,7 @@ text = "SFX volume"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SFXVolume" type="HSlider" parent="Options/VBoxContainer/HBoxContainer2"]
+[node name="SFXVolume" type="HSlider" parent="Options/VBoxContainer/HBoxContainer2" unique_id=1281207428]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/slider = SubResource("StyleBoxLine_wu84c")
@@ -294,11 +294,11 @@ step = 0.05
 value = 0.5
 script = ExtResource("5_8ln24")
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="Options/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="Options/VBoxContainer" unique_id=299395083]
 layout_mode = 2
 theme_override_constants/separation = 74
 
-[node name="Label" type="Label" parent="Options/VBoxContainer/HBoxContainer3"]
+[node name="Label" type="Label" parent="Options/VBoxContainer/HBoxContainer3" unique_id=1842685830]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 20
@@ -306,7 +306,7 @@ text = "Fullscreen"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="FullscreenControl" type="CheckButton" parent="Options/VBoxContainer/HBoxContainer3"]
+[node name="FullscreenControl" type="CheckButton" parent="Options/VBoxContainer/HBoxContainer3" unique_id=1647854421]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 20
@@ -314,7 +314,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_rtw2f")
 button_pressed = true
 script = ExtResource("6_rtw2f")
 
-[node name="Credits" type="Panel" parent="."]
+[node name="Credits" type="Panel" parent="." unique_id=202138356]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -328,7 +328,7 @@ offset_bottom = 289.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Back" type="Button" parent="Credits"]
+[node name="Back" type="Button" parent="Credits" unique_id=1997693672]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -342,19 +342,19 @@ offset_bottom = 156.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0.0430392, 0.0430392, 0.0430392, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 24
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ekxnf")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ekxnf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_bqqt6")
 theme_override_styles/normal = SubResource("StyleBoxFlat_vue75")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bqqt6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ekxnf")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ekxnf")
 text = "Back"
 
-[node name="OptionsTitle" type="Label" parent="Credits"]
+[node name="OptionsTitle" type="Label" parent="Credits" unique_id=300829402]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -366,7 +366,7 @@ text = "Credits"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Credits"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Credits" unique_id=1624687162]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -381,7 +381,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 18
 
-[node name="OptionsTitle" type="Label" parent="Credits/VBoxContainer"]
+[node name="OptionsTitle" type="Label" parent="Credits/VBoxContainer" unique_id=110477895]
 layout_mode = 2
 theme_override_constants/line_spacing = 4
 theme_override_fonts/font = ExtResource("2_ekxnf")
@@ -399,7 +399,7 @@ Professor Dsc. Gabriel de Carvalho"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GithubLinks" type="VBoxContainer" parent="Credits"]
+[node name="GithubLinks" type="VBoxContainer" parent="Credits" unique_id=1854894452]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -415,32 +415,32 @@ grow_vertical = 2
 theme_override_constants/separation = 6
 alignment = 1
 
-[node name="Andre" type="LinkButton" parent="Credits/GithubLinks"]
+[node name="Andre" type="LinkButton" parent="Credits/GithubLinks" unique_id=1397783102]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 16
 text = "André Santos"
 uri = "https://github.com/andyluy"
 
-[node name="Douglas" type="LinkButton" parent="Credits/GithubLinks"]
+[node name="Douglas" type="LinkButton" parent="Credits/GithubLinks" unique_id=1284460337]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_ekxnf")
 text = "Douglas Carvalho"
 uri = "github.com/d0ugcarv"
 
-[node name="João" type="LinkButton" parent="Credits/GithubLinks"]
+[node name="João" type="LinkButton" parent="Credits/GithubLinks" unique_id=267606544]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_ekxnf")
 text = "João Pedro Lomba"
 uri = "github.com/JPLMB"
 
-[node name="Leticia" type="LinkButton" parent="Credits/GithubLinks"]
+[node name="Leticia" type="LinkButton" parent="Credits/GithubLinks" unique_id=816659174]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_ekxnf")
 text = "Leticia Wang"
 uri = "https://github.com/Leticia-web10"
 
-[node name="Ramon" type="LinkButton" parent="Credits/GithubLinks"]
+[node name="Ramon" type="LinkButton" parent="Credits/GithubLinks" unique_id=857071231]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_ekxnf")
 text = "Ramon Lima"
@@ -451,8 +451,8 @@ uri = "https://github.com/limamon"
 [connection signal="pressed" from="Main_buttons/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="Main_buttons/Exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="Options/Back" to="." method="_on_back_options_pressed"]
-[connection signal="value_changed" from="Options/VBoxContainer/HBoxContainer/MusicVolume" to="Options/VBoxContainer/HBoxContainer/MusicVolume" method="_on_music_volume_value_changed"]
 [connection signal="value_changed" from="Options/VBoxContainer/HBoxContainer/MusicVolume" to="Options/VBoxContainer/HBoxContainer/MusicVolume" method="_on_value_changed"]
+[connection signal="value_changed" from="Options/VBoxContainer/HBoxContainer/MusicVolume" to="Options/VBoxContainer/HBoxContainer/MusicVolume" method="_on_music_volume_value_changed"]
 [connection signal="value_changed" from="Options/VBoxContainer/HBoxContainer2/SFXVolume" to="Options/VBoxContainer/HBoxContainer2/SFXVolume" method="_on_sfx_volume_value_changed"]
 [connection signal="toggled" from="Options/VBoxContainer/HBoxContainer3/FullscreenControl" to="Options/VBoxContainer/HBoxContainer3/FullscreenControl" method="_on_toggled"]
 [connection signal="pressed" from="Credits/Back" to="." method="_on_back_options_pressed"]
