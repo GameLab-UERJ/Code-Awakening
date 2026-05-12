@@ -109,10 +109,7 @@ func update_animation(direction: Vector2, swooping: bool = false) -> void:
 		return
 
 	if player_in_range and swooping:
-		animated_sprite_2d.play("drone_attack")
-		
 		animated_sprite_2d.flip_h = direction.x
-		
 		animated_sprite_2d.flip_v = false
 		
 		return
@@ -136,22 +133,23 @@ func update_animation(direction: Vector2, swooping: bool = false) -> void:
 	
 	return
 
+func explode() -> void:
+		if attack_timer >= attack_duration:
+			if player_in_range:
+				player.update_health(attack_basic)
+			
+				knockback_direction = (player.global_position - global_position).normalized()
+				player.apply_knockback(knockback_direction, 100, 0.5)
+		
+			attack_timer = 0.0
 
 func attack_melee(delta: float) -> void:
 	if is_attacking:
 		attack_timer += delta
 
 	if attack_timer >= attack_duration:
-		if player_in_range:
-			player.update_health(attack_basic)
-						
-			knockback_direction = (player.global_position - global_position).normalized()
-		
-			player.apply_knockback(knockback_direction, 100, 0.5)
-		
-		attack_timer = 0.0
-
-
+		is_attacking = false
+	
 func _on_drone_melee_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player") and not is_exploding:
 		player_in_range = true
@@ -165,16 +163,17 @@ func _on_drone_melee_hitbox_body_entered(body: Node2D) -> void:
 
 
 func _on_drone_melee_hitbox_body_exited(body: Node2D) -> void:
-	if body.is_in_group("Player") and not is_exploding:
+	if body.is_in_group("Player"):
 		player_in_range = false
 		
-		is_attacking = false
+		if not is_exploding:
+			is_attacking = false
 		
-		update_animation(last_direction)
+			update_animation(last_direction)
 		
-		attack_timer = 0.0
+			attack_timer = 0.0
 		
-		swoop_speed = 3000.0
+			swoop_speed = 3000.0
 
 
 func _on_territory_body_entered(body: Node2D) -> void:
@@ -226,9 +225,11 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 			
 			drop_item._drop_item()
 		queue_free()
+	
 	elif animated_sprite_2d.animation == "drone_attack":
+		explode()
 		queue_free()
-
+		
 
 func apply_knockback(direction: Vector2, force: float, knockback_duration: float) -> void:
 	if is_exploding or is_dead:
