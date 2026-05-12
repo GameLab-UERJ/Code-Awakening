@@ -180,11 +180,12 @@ func update_health(value: float) -> void:
 			
 			time_part = 0.0
 		else:
+			if value < 0:
+				play_hit_feedback()			
 			health += value
 			
 			time_part += value / 100
 		
-		play_hit_feedback()
 		emit_health_update.emit(health)
 
 func die() -> void:
@@ -193,8 +194,7 @@ func die() -> void:
 		Global.has_ever_died = true
 				
 		animated_sprite.play("die")
-
-
+		
 func _on_human_animated_sprite_animation_finished() -> void:
 	if animated_sprite.animation == "die":
 		
