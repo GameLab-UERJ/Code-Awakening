@@ -228,8 +228,9 @@ func play_hit_feedback() -> void:
 			await get_tree().create_timer(0.2).timeout
 			robot_animated_sprite.modulate = Color(1,1,1)
 
-# player has transformed		
+	
 func _input(event: InputEvent) -> void:
+	# player has transformed	
 	if event.is_action_pressed("ui_accept") and transformation_timer.is_stopped():
 		if current_scene.name == "lab_inicial":
 			pass
@@ -239,7 +240,8 @@ func _input(event: InputEvent) -> void:
 			attack_basic *= 2
 			
 			transformation_timer.start(transformation_limit * time_part)
-
+			
+					
 func update_energy_transformation(value: float = -10.0) -> void:
 	if type_of_body == TYPE_TRANSFORM.ROBOT:
 		if transformation_timer.time_left + 0.1 <= transformation_limit * (time_part - 0.1):
@@ -276,6 +278,9 @@ func is_attacking() -> bool:
 	return Input.is_action_just_pressed("attack")
 	
 func handle_sword_direction() -> void:
+	if current_scene.name == "lab_inicial":
+		return
+	
 	if not sword_animation_player.is_playing():
 		sword.hide()
 	
