@@ -7,6 +7,7 @@ var type_of_body: TYPE_TRANSFORM
 @onready var robot_animated_sprite: AnimatedSprite2D = $RobotAnimatedSprite
 
 var speed: float = 4000.0
+@export var speed_multiplier: float = 1
 var direction: Vector2 = Vector2.ZERO
 var last_direction: Vector2 = Vector2.ZERO
 
@@ -50,12 +51,13 @@ func _ready() -> void:
 	add_to_group("Player")
 	
 	change_to(TYPE_TRANSFORM.HUMAN)
-	
+	change_player_speed()
+				
 	health_limit = health
 	
 	energy_limit = energy
 	
-
+	
 func change_to(type_transformation : TYPE_TRANSFORM = TYPE_TRANSFORM.ROBOT) -> void:
 	if type_transformation == TYPE_TRANSFORM.ROBOT:
 		human_animated_sprite.visible = false
@@ -70,6 +72,12 @@ func change_to(type_transformation : TYPE_TRANSFORM = TYPE_TRANSFORM.ROBOT) -> v
 		
 	animated_sprite.visible = true
 	
+# change this to match if it gets messy
+func change_player_speed() -> void:
+	if current_scene.name == "lab_inicial" and Global.has_ever_died == true:
+		speed_multiplier = 5.0
+	else:
+		pass		
 	
 func _physics_process(delta: float) -> void:
 	die()
@@ -91,7 +99,7 @@ func _physics_process(delta: float) -> void:
 		# As good practice, you should replace UI actions with custom gameplay actions.
 		direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 		
-		velocity = direction * speed * delta
+		velocity = direction * speed * delta * speed_multiplier
 		
 		if direction != Vector2.ZERO:
 			last_direction = direction
@@ -105,7 +113,6 @@ func _physics_process(delta: float) -> void:
 	update_energy_transformation()
 	
 	move_and_slide()
-
 
 func update_animation() -> void:
 	# invert direction do sprite righ to left
@@ -162,7 +169,6 @@ func _on_hitbox_body_exited(body: Node2D) -> void:
 		
 		attack_timer = 0
 
-
 func update_health(value: float) -> void:
 	if health <= health_limit and health >= 0.0:
 		if (health + value) > energy_limit:
@@ -174,21 +180,21 @@ func update_health(value: float) -> void:
 			
 			time_part = 0.0
 		else:
+			if value < 0:
+				play_hit_feedback()			
 			health += value
 			
 			time_part += value / 100
 		
-		play_hit_feedback()
 		emit_health_update.emit(health)
-
 
 func die() -> void:
 	if health <= 0 and not is_dead:
 		is_dead = true
-		
+		Global.has_ever_died = true
+				
 		animated_sprite.play("die")
-
-
+		
 func _on_human_animated_sprite_animation_finished() -> void:
 	if animated_sprite.animation == "die":
 		
