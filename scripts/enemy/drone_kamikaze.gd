@@ -133,6 +133,7 @@ func update_animation(direction: Vector2, swooping: bool = false) -> void:
 	
 	return
 
+
 func explode() -> void:
 		if attack_timer >= attack_duration:
 			if player_in_range:
@@ -161,7 +162,6 @@ func _on_drone_melee_hitbox_body_entered(body: Node2D) -> void:
 		is_exploding = true
 		animated_sprite_2d.play("drone_attack")
 
-
 func _on_drone_melee_hitbox_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		player_in_range = false
@@ -174,8 +174,8 @@ func _on_drone_melee_hitbox_body_exited(body: Node2D) -> void:
 			attack_timer = 0.0
 		
 			swoop_speed = 3000.0
-
-
+			
+	
 func _on_territory_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		player = body
