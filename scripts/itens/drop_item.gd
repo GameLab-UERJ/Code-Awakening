@@ -38,9 +38,9 @@ func is_spawn_allowed(global_pos: Vector2) -> bool:
 	return tile_data.get_custom_data("spawn_allowed")
 
 func def_spawn_position() -> Vector2:
-	var test_pos: Vector2
+	var test_pos: Vector2 = global_position
 	
-	while not is_spawn_allowed(test_pos):
+	for i in range(10):
 		var offset: Vector2 = Vector2(randf_range(-32, 32), randf_range(-32, 32))
 		
 		test_pos = global_position + offset
@@ -50,9 +50,6 @@ func def_spawn_position() -> Vector2:
 	return Vector2.ZERO		
 
 func _drop_item() -> void:
-	if not is_spawn_allowed(global_position):
-		return
-	
 	total_weight = 0.0
 	
 	for weight in item_drop_chances:
@@ -70,7 +67,8 @@ func _drop_item() -> void:
 				return
 				
 			item = item_drop[i].instantiate()
-						
+			
+			# the item needs a legal area to spawn			
 			item.global_position = def_spawn_position()
 			
 			get_tree().current_scene.call_deferred("add_child", item)

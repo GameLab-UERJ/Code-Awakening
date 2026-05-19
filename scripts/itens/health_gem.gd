@@ -5,7 +5,6 @@ extends Area2D
 @export var health: float
 
 func _on_body_entered(body: Node2D) -> void:
-	animation_player.play("pick_up")
-	
 	if body.name == "Player":
+		animation_player.play("pick_up")
 		body.update_health(health)
