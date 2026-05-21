@@ -1,0 +1,149 @@
+[gd_scene format=3 uid="uid://dldfni670i45v"]
+
+[ext_resource type="Script" uid="uid://chy8o6qvel17q" path="res://scripts/itens/fire_gem.gd" id="1_03vcf"]
+[ext_resource type="Texture2D" uid="uid://c43265b48hqd7" path="res://Assets/itens/spr_coin_orang.png" id="1_s5d2f"]
+[ext_resource type="AudioStream" uid="uid://fcsporqbn2ve" path="res://Assets/sounds/coin.wav" id="2_savff"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_savff"]
+atlas = ExtResource("1_s5d2f")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_03vcf"]
+atlas = ExtResource("1_s5d2f")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqxsy"]
+atlas = ExtResource("1_s5d2f")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cs5q7"]
+atlas = ExtResource("1_s5d2f")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8ub28"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_savff")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_03vcf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dqxsy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cs5q7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_02swq"]
+radius = 6.0
+
+[sub_resource type="Animation" id="Animation_savff"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PickupSound:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_s5d2f"]
+resource_name = "pick_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PickupSound:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_savff"]
+_data = {
+&"RESET": SubResource("Animation_savff"),
+&"pick_up": SubResource("Animation_s5d2f")
+}
+
+[node name="fire_gem" type="Area2D" unique_id=2040361919]
+script = ExtResource("1_03vcf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1237791997]
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_8ub28")
+autoplay = "default"
+frame = 3
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=577803942]
+shape = SubResource("CircleShape2D_02swq")
+
+[node name="PickupSound" type="AudioStreamPlayer" parent="." unique_id=994601769]
+stream = ExtResource("2_savff")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=372083928]
+libraries/ = SubResource("AnimationLibrary_savff")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -20,6 +20,7 @@ signal emit_energy_update(new_energy: float)
 var health_limit: float
 @export var energy: float = 100.0
 var energy_limit: float
+@export var fire_charge: int = 0
 
 var is_dead: bool = false
 

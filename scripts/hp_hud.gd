@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var hp_bar = $CanvasLayer/hp_bar
 @onready var energy_bar = $CanvasLayer/energy_bar
+@onready var special_bar = $CanvasLayer/CenterContainer/special_bar
 @onready var VictoryCounter: Label = $CanvasLayer/VictoryCounter
 
 @onready var player: CharacterBody2D = $"../Player"
