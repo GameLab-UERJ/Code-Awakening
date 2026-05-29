@@ -1,20 +1,18 @@
-[gd_scene load_steps=11 format=3 uid="uid://c5kcbj13okxyx"]
+[gd_scene format=3 uid="uid://c5kcbj13okxyx"]
 
 [ext_resource type="Script" uid="uid://v0hsdri215by" path="res://scripts/ui/endgame_screen.gd" id="1_s7nbu"]
-[ext_resource type="Texture2D" uid="uid://bok5k5tu748p2" path="res://assets/ui/tutorial-lab.png" id="2_cbsht"]
-[ext_resource type="FontFile" uid="uid://neecrem67in6" path="res://assets/fonts/CyberpunkCraftpixPixel.otf" id="2_vrvio"]
-[ext_resource type="AudioStream" uid="uid://cgp03v0buibmb" path="res://assets/sounds/menu_sounds/Pixel 1.mp3" id="4_us64b"]
-[ext_resource type="AudioStream" uid="uid://8j16is6xypvs" path="res://assets/sounds/menu_sounds/Pixel 7.mp3" id="5_nrxms"]
+[ext_resource type="Texture2D" uid="uid://vcecidbgp2jr" path="res://assets/ui/tutorial-lab.png" id="2_cbsht"]
+[ext_resource type="FontFile" uid="uid://neecrem67in6" path="res://Assets/fonts/CyberpunkCraftpixPixel.otf" id="2_vrvio"]
+[ext_resource type="AudioStream" uid="uid://cgp03v0buibmb" path="res://Assets/sounds/menu_sounds/Pixel 1.mp3" id="4_us64b"]
+[ext_resource type="AudioStream" uid="uid://8j16is6xypvs" path="res://Assets/sounds/menu_sounds/Pixel 7.mp3" id="5_nrxms"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_us64b"]
 texture = ExtResource("2_cbsht")
 region_rect = Rect2(77, 33.7, 848.2, 486.2)
 modulate_color = Color(0.593134, 0.593134, 0.593134, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ekxnf"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekxnf"]
-bg_color = Color(0.868985, 0.868985, 0.868985, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vue75"]
+bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -33,8 +31,8 @@ shadow_color = Color(0.0338533, 0.0338533, 0.0338533, 0.34902)
 shadow_size = 8
 shadow_offset = Vector2(-5, 5)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vue75"]
-bg_color = Color(1, 1, 1, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekxnf"]
+bg_color = Color(0.868985, 0.868985, 0.868985, 1)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -43,7 +41,9 @@ shadow_color = Color(0.0338533, 0.0338533, 0.0338533, 0.34902)
 shadow_size = 8
 shadow_offset = Vector2(-5, 5)
 
-[node name="EndgameScreen" type="Control"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ekxnf"]
+
+[node name="EndgameScreen" type="Control" unique_id=464379357]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -53,7 +53,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_s7nbu")
 
-[node name="Background" type="Panel" parent="."]
+[node name="Background" type="Panel" parent="." unique_id=849445579]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -62,7 +62,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_us64b")
 
-[node name="DeathTitle" type="Label" parent="."]
+[node name="DeathTitle" type="Label" parent="." unique_id=476481800]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -84,7 +84,7 @@ text = "You Died"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VictoryTitle" type="Label" parent="."]
+[node name="VictoryTitle" type="Label" parent="." unique_id=615248404]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -103,11 +103,11 @@ theme_override_constants/shadow_offset_x = -6
 theme_override_constants/shadow_offset_y = 8
 theme_override_fonts/font = ExtResource("2_vrvio")
 theme_override_font_sizes/font_size = 120
-text = "You survided..."
+text = "You survived..."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PauseButtons" type="VBoxContainer" parent="."]
+[node name="PauseButtons" type="VBoxContainer" parent="." unique_id=412937447]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -122,42 +122,42 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 8
 
-[node name="MainMenu" type="Button" parent="PauseButtons"]
+[node name="MainMenu" type="Button" parent="PauseButtons" unique_id=959706399]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0.0430392, 0.0430392, 0.0430392, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_vrvio")
 theme_override_font_sizes/font_size = 24
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ekxnf")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ekxnf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_bqqt6")
 theme_override_styles/normal = SubResource("StyleBoxFlat_vue75")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bqqt6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ekxnf")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ekxnf")
 text = "Main Menu"
 
-[node name="Exit" type="Button" parent="PauseButtons"]
+[node name="Exit" type="Button" parent="PauseButtons" unique_id=112650942]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0.0430392, 0.0430392, 0.0430392, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_vrvio")
 theme_override_font_sizes/font_size = 24
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ekxnf")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ekxnf")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_bqqt6")
 theme_override_styles/normal = SubResource("StyleBoxFlat_vue75")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bqqt6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ekxnf")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ekxnf")
 text = "Exit"
 
-[node name="DeathMusic" type="AudioStreamPlayer2D" parent="."]
+[node name="DeathMusic" type="AudioStreamPlayer2D" parent="." unique_id=1560019606]
 stream = ExtResource("4_us64b")
 autoplay = true
 bus = &"Music"
 
-[node name="VictoryMusic" type="AudioStreamPlayer2D" parent="."]
+[node name="VictoryMusic" type="AudioStreamPlayer2D" parent="." unique_id=363483442]
 stream = ExtResource("5_nrxms")
 autoplay = true
 bus = &"Music"
