@@ -23,18 +23,22 @@ func _ready() -> void:
 		hp_hud._on_energy_update(Global.energy)
 		player.energy = Global.energy
 		
-	if Global.block_cave_plaines:
+	if Global.block_cave_plaines and !Global.plaines_defeated:
 		if !block_cave_plaines.enabled:
 			Global.victories += 1
+			Global.plaines_defeated = true
+			block_cave_plaines.enabled = true	
+		
 		print("plain")
-		block_cave_plaines.enabled = true
 
 	
-	if Global.block_cave_montains:
+	if Global.block_cave_montains and !Global.montain_defeated:
 		if !block_cave_montain.enabled:
 			Global.victories += 1
+			Global.montain_defeated = true
+			block_cave_montain.enabled = true
+			
 		print("mount")
-		block_cave_montain.enabled = true
 
 
 func _process(delta: float) -> void:
