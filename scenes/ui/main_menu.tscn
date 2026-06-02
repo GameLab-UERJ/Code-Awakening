@@ -175,7 +175,6 @@ text = "Exit"
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=366454899]
 position = Vector2(477, 486.5)
 stream = ExtResource("4_wu84c")
-autoplay = true
 bus = &"Music"
 
 [node name="Options" type="Panel" parent="." unique_id=720927695]
