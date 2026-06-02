@@ -63,7 +63,6 @@ offset_right = -0.0800171
 offset_bottom = 0.119999
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" unique_id=1626488286]
-modulate = Color(1, 1, 1, 0.3529412)
 offset_top = 39.0
 offset_right = 101.0
 offset_bottom = 71.0
@@ -71,21 +70,24 @@ offset_bottom = 71.0
 [node name="special_bar" type="Control" parent="CanvasLayer/CenterContainer" unique_id=1233846368]
 layout_mode = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/CenterContainer/special_bar" unique_id=1577423743]
-position = Vector2(-2, -2)
-scale = Vector2(2, 2)
-texture = SubResource("CompressedTexture2D_kdqo8")
-region_enabled = true
-region_rect = Rect2(-0.5, -0.4079132, 15.923679, 16.32218)
-
-[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/CenterContainer/special_bar" unique_id=1960971717]
+[node name="Gem1" type="Sprite2D" parent="CanvasLayer/CenterContainer/special_bar" unique_id=1960971717]
+modulate = Color(1, 1, 1, 0.38039216)
 position = Vector2(-28, -2)
 scale = Vector2(2, 2)
 texture = SubResource("CompressedTexture2D_kdqo8")
 region_enabled = true
 region_rect = Rect2(-0.5, -0.4079132, 15.923679, 16.32218)
 
-[node name="Sprite2D3" type="Sprite2D" parent="CanvasLayer/CenterContainer/special_bar" unique_id=479758984]
+[node name="Gem2" type="Sprite2D" parent="CanvasLayer/CenterContainer/special_bar" unique_id=1577423743]
+modulate = Color(1, 1, 1, 0.38039216)
+position = Vector2(-2, -2)
+scale = Vector2(2, 2)
+texture = SubResource("CompressedTexture2D_kdqo8")
+region_enabled = true
+region_rect = Rect2(-0.5, -0.4079132, 15.923679, 16.32218)
+
+[node name="Gem3" type="Sprite2D" parent="CanvasLayer/CenterContainer/special_bar" unique_id=479758984]
+modulate = Color(1, 1, 1, 0.38039216)
 position = Vector2(24, -2)
 scale = Vector2(2, 2)
 texture = SubResource("CompressedTexture2D_kdqo8")

@@ -303,3 +303,8 @@ func handle_sword_direction() -> void:
 		sword.show()
 		
 		sword_animation_player.play("attack")
+
+func _on_token_collected(gem_value) -> void:
+	fire_charge += gem_value
+	print(fire_charge) # debugging purposes
+	
