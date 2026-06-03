@@ -7,15 +7,13 @@ extends Node2D
 
 var gems: Array = []
 
-@onready var player: CharacterBody2D = $"../Player"
+@onready var player = get_tree().get_first_node_in_group("Player")
 
 func _ready() -> void:
+	# handle player stat changes
 	player.emit_health_update.connect(_on_health_update)
 	player.emit_energy_update.connect(_on_energy_update)
-
-	# TODO: Work onto a event bus to avoid this mess	
-	var fire_gem = get_tree().get_first_node_in_group("Fire Gem")
-	fire_gem.emit_charge_update.connect(_on_charge_update)
+	player.emit_charge_update.connect(_on_charge_update)
 	
 	gems = special_bar.get_children()
 	for gem in gems:
