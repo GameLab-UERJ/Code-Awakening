@@ -256,7 +256,7 @@ show_percentage = false
 [node name="DropItem" type="Node2D" parent="." unique_id=215779467]
 script = ExtResource("7_emrsc")
 item_drop = Array[PackedScene]([ExtResource("8_au0xg"), ExtResource("9_iotye"), ExtResource("7_0k3a2")])
-item_drop_chances = Array[float]([30.0, 30.0, 20.0])
+item_drop_chances = Array[float]([30.0, 30.0, 30.0])
 
 [node name="Shadow" type="Sprite2D" parent="." unique_id=1582314323]
 z_index = 1
