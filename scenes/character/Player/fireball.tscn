@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bsu6cd7mc3cgm"]
 
+[ext_resource type="Script" uid="uid://cepq53k08dc63" path="res://scripts/fireball.gd" id="1_hvlxq"]
 [ext_resource type="Texture2D" uid="uid://dhpgjeipqtlgf" path="res://Assets/Player/fireball/FB001.png" id="1_rrfii"]
 [ext_resource type="Texture2D" uid="uid://bv3vuvu6ou40a" path="res://Assets/Player/fireball/FB002.png" id="2_i5d1v"]
 [ext_resource type="Texture2D" uid="uid://dvhh3xdupr4my" path="res://Assets/Player/fireball/FB003.png" id="3_hvlxq"]
@@ -34,6 +35,9 @@ animations = [{
 radius = 9.055386
 
 [node name="Fireball" type="Area2D" unique_id=891992187]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_hvlxq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=64069289]
 sprite_frames = SubResource("SpriteFrames_kwn07")
@@ -50,3 +54,5 @@ shape = SubResource("CircleShape2D_rrfii")
 [node name="CastSound" type="AudioStreamPlayer2D" parent="." unique_id=1347790916]
 stream = ExtResource("6_i5d1v")
 pitch_scale = 1.2
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

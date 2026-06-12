@@ -40,6 +40,7 @@ var knockback_direction: Vector2 = Vector2.ZERO
 
 @onready var sword: Node2D = $Sword
 @onready var sword_animation_player: AnimationPlayer = $Sword/SwordAnimationPlayer
+@onready var firethrower = $WeaponComponent
 
 @onready var hitbox: Area2D = $Sword/Node2D/Sprite2D/Hitbox
 
@@ -244,7 +245,15 @@ func _input(event: InputEvent) -> void:
 			attack_basic *= 2
 			
 			transformation_timer.start(transformation_limit * time_part)
-			
+	
+	if event.is_action_pressed("shoot"): 
+		if current_scene.name == "lab_inicial":
+			pass
+		else:
+			var direction = (get_global_mouse_position() - global_position).normalized()
+			firethrower.shoot(direction)
+	
+	
 					
 func update_energy_transformation(value: float = -10.0) -> void:
 	if type_of_body == TYPE_TRANSFORM.ROBOT:
