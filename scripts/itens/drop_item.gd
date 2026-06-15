@@ -40,7 +40,7 @@ func is_spawn_allowed(global_pos: Vector2) -> bool:
 func def_spawn_position() -> Vector2:
 	var test_pos: Vector2 = global_position
 	
-	for i in range(10):
+	for i in range(10): # number of attempts for spawning
 		var offset: Vector2 = Vector2(randf_range(-32, 32), randf_range(-32, 32))
 		
 		test_pos = global_position + offset

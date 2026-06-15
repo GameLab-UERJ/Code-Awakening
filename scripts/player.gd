@@ -15,11 +15,15 @@ var enemy_in_range = false
 
 signal emit_health_update(new_health: float)
 signal emit_energy_update(new_energy: float)
+signal emit_charge_update(new_charge: int)
 
 @export var health: float = 100.0
 var health_limit: float
 @export var energy: float = 100.0
 var energy_limit: float
+
+@export var fire_charge: int = 0
+@export var max_charge: int = 3
 
 var is_dead: bool = false
 
@@ -302,3 +306,11 @@ func handle_sword_direction() -> void:
 		sword.show()
 		
 		sword_animation_player.play("attack")
+
+func add_charge() -> void:
+	fire_charge += 1
+	fire_charge = clamp(fire_charge, 0, max_charge)
+	
+	emit_charge_update.emit(fire_charge)
+	
+	print(fire_charge) # debugging purposes

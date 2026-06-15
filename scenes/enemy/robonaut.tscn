@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://j734hducc7g2" path="res://scripts/enemy/drone_melee.gd" id="1_smqe5"]
 [ext_resource type="Texture2D" uid="uid://b64o2sjd4qgkr" path="res://Assets/enemy/robonaut/Attack_Death.png" id="2_tggg4"]
 [ext_resource type="Texture2D" uid="uid://c876hhbd1powv" path="res://Assets/enemy/robonaut/Idle_Fly.png" id="3_0k3a2"]
+[ext_resource type="PackedScene" uid="uid://dldfni670i45v" path="res://scenes/itens/fire_gem.tscn" id="7_0k3a2"]
 [ext_resource type="Script" uid="uid://b2wt5876yigsh" path="res://scripts/itens/drop_item.gd" id="7_emrsc"]
 [ext_resource type="PackedScene" uid="uid://btgem6t5njodn" path="res://scenes/itens/energy_gem.tscn" id="8_au0xg"]
 [ext_resource type="PackedScene" uid="uid://djjnr6veblc63" path="res://scenes/itens/health_gem.tscn" id="9_iotye"]
@@ -254,8 +255,8 @@ show_percentage = false
 
 [node name="DropItem" type="Node2D" parent="." unique_id=215779467]
 script = ExtResource("7_emrsc")
-item_drop = Array[PackedScene]([ExtResource("8_au0xg"), ExtResource("9_iotye")])
-item_drop_chances = Array[float]([30.0, 30.0, 40.0])
+item_drop = Array[PackedScene]([ExtResource("8_au0xg"), ExtResource("9_iotye"), ExtResource("7_0k3a2")])
+item_drop_chances = Array[float]([30.0, 30.0, 30.0])
 
 [node name="Shadow" type="Sprite2D" parent="." unique_id=1582314323]
 z_index = 1
