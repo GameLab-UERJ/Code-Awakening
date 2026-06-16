@@ -8,5 +8,4 @@ func _shoot(direction: Vector2) -> void:
 	
 	projectile.global_position = owner.global_position
 	projectile.direction = direction
-	print(direction)
-	
+		
