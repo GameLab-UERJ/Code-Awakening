@@ -9,3 +9,5 @@ func _on_body_entered(body: Node2D) -> void:
 		player.change_charge(true)
 		animation_player.play("pick_up")
 		
+		await animation_player.animation_finished
+		queue_free()

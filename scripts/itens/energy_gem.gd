@@ -8,3 +8,6 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		animation_player.play("pick_up")
 		body.update_energy(energy)
+		
+		await animation_player.animation_finisheds
+		queue_free()
