@@ -22,6 +22,8 @@ var health_limit: float
 @export var energy: float = 100.0
 var energy_limit: float
 
+@onready var weapon: Node = $WeaponComponent
+
 @export var fire_charge: int = 0
 @export var max_charge: int = 3
 
@@ -40,6 +42,8 @@ var knockback_direction: Vector2 = Vector2.ZERO
 
 @onready var sword: Node2D = $Sword
 @onready var sword_animation_player: AnimationPlayer = $Sword/SwordAnimationPlayer
+
+var mouse_direction: Vector2 
 
 @onready var hitbox: Area2D = $Sword/Node2D/Sprite2D/Hitbox
 
@@ -245,7 +249,12 @@ func _input(event: InputEvent) -> void:
 			
 			transformation_timer.start(transformation_limit * time_part)
 			
-					
+	if event.is_action_pressed("shoot"):
+		if current_scene.name == "lab_inicial":
+			return
+		else:
+			weapon._shoot(mouse_direction)
+						
 func update_energy_transformation(value: float = -10.0) -> void:
 	if type_of_body == TYPE_TRANSFORM.ROBOT:
 		if transformation_timer.time_left + 0.1 <= transformation_limit * (time_part - 0.1):
@@ -287,9 +296,8 @@ func handle_sword_direction() -> void:
 	
 	if not sword_animation_player.is_playing():
 		sword.hide()
-	
-		var mouse_direction: Vector2 = (get_global_mouse_position() - global_position).normalized()
-
+		mouse_direction = (get_global_mouse_position() - global_position).normalized()
+				
 		if mouse_direction.x > 0 and animated_sprite.flip_h:
 			animated_sprite.flip_h = false
 		elif mouse_direction.x < 0 and not animated_sprite.flip_h:
