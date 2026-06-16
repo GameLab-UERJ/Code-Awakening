@@ -160,8 +160,8 @@ func attack_melee(delta: float) -> void:
 			enemy.apply_knockback(knockback_direction, 75.0, 0.5)
 		
 		attack_timer = 0
-
-
+		
+		
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemy"):
 		enemy_in_range  = true
@@ -249,12 +249,13 @@ func _input(event: InputEvent) -> void:
 			
 			transformation_timer.start(transformation_limit * time_part)
 			
-	if event.is_action_pressed("shoot"):
+	if event.is_action_pressed("shoot") and type_of_body == TYPE_TRANSFORM.ROBOT:
 		if current_scene.name == "lab_inicial":
 			return
 		else:
 			weapon._shoot(mouse_direction)
-						
+			
+					
 func update_energy_transformation(value: float = -10.0) -> void:
 	if type_of_body == TYPE_TRANSFORM.ROBOT:
 		if transformation_timer.time_left + 0.1 <= transformation_limit * (time_part - 0.1):
