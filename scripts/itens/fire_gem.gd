@@ -6,6 +6,6 @@ extends Area2D
 # player will listen for changes on gem count
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
-		player.add_charge()
+		player.change_charge(true)
 		animation_player.play("pick_up")
 		

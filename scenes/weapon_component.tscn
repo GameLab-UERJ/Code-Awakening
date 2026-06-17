@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dxypk1saliver"]
+
+[ext_resource type="Script" uid="uid://dsm7x7v8kmdyj" path="res://scripts/weapon_component.gd" id="1_usruc"]
+[ext_resource type="PackedScene" uid="uid://c0i0xoea2euxw" path="res://scenes/character/Player/Fireball.tscn" id="2_wst5y"]
+
+[node name="WeaponComponent" type="Node" unique_id=1819125550]
+script = ExtResource("1_usruc")
+projectile_scene = ExtResource("2_wst5y")
