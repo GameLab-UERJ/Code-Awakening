@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://c0i0xoea2euxw"]
+[gd_scene format=3 uid="uid://b3hp1oud7lljk"]
 
 [ext_resource type="Texture2D" uid="uid://dhpgjeipqtlgf" path="res://Assets/Player/fireball/FB001.png" id="1_0fxfm"]
-[ext_resource type="Script" uid="uid://cepq53k08dc63" path="res://scenes/character/Player/fireball.gd" id="1_5yiae"]
+[ext_resource type="Script" path="res://scenes/character/Player/fireball.gd" id="1_5yiae"]
 [ext_resource type="Texture2D" uid="uid://bv3vuvu6ou40a" path="res://Assets/Player/fireball/FB002.png" id="2_5yiae"]
 [ext_resource type="Texture2D" uid="uid://dvhh3xdupr4my" path="res://Assets/Player/fireball/FB003.png" id="3_x4gc2"]
 [ext_resource type="Texture2D" uid="uid://bc6pmqtve8udl" path="res://Assets/Player/fireball/FB004.png" id="4_ucu0o"]

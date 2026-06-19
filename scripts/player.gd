@@ -160,7 +160,7 @@ func attack_melee(delta: float) -> void:
 			enemy.apply_knockback(knockback_direction, 75.0, 0.5)
 		
 		attack_timer = 0
-		
+
 func attack_ranged() -> void:
 	if current_scene.name == "lab_inicial":
 		return
@@ -169,7 +169,10 @@ func attack_ranged() -> void:
 			return
 		else:
 			change_charge(false)
-			weapon._shoot(mouse_direction)
+			if type_of_body == TYPE_TRANSFORM.HUMAN:
+				weapon.shoot_flipflop(mouse_direction)
+			elif type_of_body == TYPE_TRANSFORM.ROBOT:
+				weapon.shoot_fireball(mouse_direction)
 
 		
 func _on_hitbox_body_entered(body: Node2D) -> void:
@@ -259,7 +262,7 @@ func _input(event: InputEvent) -> void:
 			
 			transformation_timer.start(transformation_limit * time_part)
 			
-	if event.is_action_pressed("shoot") and type_of_body == TYPE_TRANSFORM.ROBOT:
+	if event.is_action_pressed("shoot"):
 		attack_ranged()
 		
 					
@@ -331,5 +334,8 @@ func change_charge(add: bool) -> void:
 	
 	fire_charge = clamp(fire_charge, 0, max_charge)
 	emit_charge_update.emit(fire_charge)
+
+
+	
 	
 	

@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bkctw85hhktkk" path="res://Assets/Player/effect_player/slash_effect_anim_spritesheet.png" id="5_tj3i7"]
 [ext_resource type="Texture2D" uid="uid://dmgcogjh3wh8w" path="res://Assets/enemy/Shadow.png" id="8_smehm"]
 [ext_resource type="AudioStream" uid="uid://c1rmukl1u783o" path="res://Assets/sounds/splat_quick.wav" id="9_ur7pv"]
-[ext_resource type="PackedScene" uid="uid://dxypk1saliver" path="res://scenes/weapon_component.tscn" id="10_y4r1p"]
+[ext_resource type="PackedScene" uid="uid://coeo5w15rku7s" path="res://scenes/weapon_component.tscn" id="10_y4r1p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dt7fs"]
 atlas = ExtResource("1_3vyb7")
