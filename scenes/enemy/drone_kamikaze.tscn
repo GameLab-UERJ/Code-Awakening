@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://b2wt5876yigsh" path="res://scripts/itens/drop_item.gd" id="7_22pq4"]
 [ext_resource type="PackedScene" uid="uid://btgem6t5njodn" path="res://scenes/itens/energy_gem.tscn" id="8_17800"]
 [ext_resource type="PackedScene" uid="uid://djjnr6veblc63" path="res://scenes/itens/health_gem.tscn" id="9_1ukf5"]
+[ext_resource type="PackedScene" uid="uid://dldfni670i45v" path="res://scenes/itens/fire_gem.tscn" id="10_1ukf5"]
 [ext_resource type="Texture2D" uid="uid://dmgcogjh3wh8w" path="res://Assets/enemy/Shadow.png" id="10_17800"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y8b24"]
@@ -256,7 +257,9 @@ animation = &"drone_die"
 autoplay = "move_up"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=938852562]
+z_index = 1
 position = Vector2(0, -2)
+scale = Vector2(1.3, 1.3)
 shape = SubResource("CircleShape2D_dcoha")
 
 [node name="DroneMeleeHitbox" type="Area2D" parent="." unique_id=1998499060]
@@ -264,6 +267,7 @@ collision_layer = 2
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DroneMeleeHitbox" unique_id=735814002]
+scale = Vector2(1.5, 1.5)
 shape = SubResource("CircleShape2D_7d178")
 
 [node name="Territory" type="Area2D" parent="." unique_id=1847775090]
@@ -271,7 +275,7 @@ collision_layer = 2
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Territory" unique_id=790728914]
-visible = false
+scale = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_lnmnu")
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=244119823]
@@ -289,11 +293,11 @@ show_percentage = false
 
 [node name="DropItem" type="Node2D" parent="." unique_id=589045026]
 script = ExtResource("7_22pq4")
-item_drop = Array[PackedScene]([ExtResource("8_17800"), ExtResource("9_1ukf5")])
-item_drop_chances = Array[float]([30.0, 30.0, 40.0])
+item_drop = Array[PackedScene]([ExtResource("8_17800"), ExtResource("9_1ukf5"), ExtResource("10_1ukf5")])
+item_drop_chances = Array[float]([30.0, 30.0, 30.0])
 
 [node name="Shadow" type="Sprite2D" parent="." unique_id=108983617]
-z_index = 15
+z_index = 1
 z_as_relative = false
 position = Vector2(-1, 4)
 texture = ExtResource("10_17800")

@@ -1,8 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://btgem6t5njodn"]
+[gd_scene format=3 uid="uid://btgem6t5njodn"]
 
 [ext_resource type="Script" uid="uid://dl1ygqjrmm2c6" path="res://scripts/itens/energy_gem.gd" id="1_bmfj1"]
-[ext_resource type="Texture2D" uid="uid://dqjk8mss46ji4" path="res://assets/itens/spr_coin_azu.png" id="2_h2pvw"]
-[ext_resource type="AudioStream" uid="uid://fcsporqbn2ve" path="res://assets/sounds/coin.wav" id="2_l5ocl"]
+[ext_resource type="Texture2D" uid="uid://dqjk8mss46ji4" path="res://Assets/itens/spr_coin_azu.png" id="2_h2pvw"]
+[ext_resource type="AudioStream" uid="uid://fcsporqbn2ve" path="res://Assets/sounds/coin.wav" id="2_l5ocl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bmfj1"]
 atlas = ExtResource("2_h2pvw")
@@ -141,12 +141,12 @@ _data = {
 &"pick_up": SubResource("Animation_bmfj1")
 }
 
-[node name="EnergyGem" type="Area2D"]
+[node name="EnergyGem" type="Area2D" unique_id=1767102021]
 z_index = 10
 script = ExtResource("1_bmfj1")
 energy = 20.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2043997095]
 position = Vector2(0.280769, -0.280769)
 scale = Vector2(0.589904, 0.589904)
 sprite_frames = SubResource("SpriteFrames_0x3am")
@@ -155,17 +155,14 @@ autoplay = "energy_gem"
 frame = 2
 frame_progress = 0.49891
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1777747353]
 scale = Vector2(0.957163, 1)
 shape = SubResource("CircleShape2D_xktt5")
 
-[node name="PickupSound" type="AudioStreamPlayer2D" parent="."]
+[node name="PickupSound" type="AudioStreamPlayer2D" parent="." unique_id=1295666186]
 stream = ExtResource("2_l5ocl")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_xktt5")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2036111267]
+libraries/ = SubResource("AnimationLibrary_xktt5")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

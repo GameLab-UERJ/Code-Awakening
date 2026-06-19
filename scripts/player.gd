@@ -15,11 +15,15 @@ var enemy_in_range = false
 
 signal emit_health_update(new_health: float)
 signal emit_energy_update(new_energy: float)
+signal emit_charge_update(new_charge: int)
 
 @export var health: float = 100.0
 var health_limit: float
 @export var energy: float = 100.0
 var energy_limit: float
+
+@export var fire_charge: int = 0
+@export var max_charge: int = 3
 
 var is_dead: bool = false
 
@@ -228,8 +232,9 @@ func play_hit_feedback() -> void:
 			await get_tree().create_timer(0.2).timeout
 			robot_animated_sprite.modulate = Color(1,1,1)
 
-# player has transformed		
+	
 func _input(event: InputEvent) -> void:
+	# player has transformed	
 	if event.is_action_pressed("ui_accept") and transformation_timer.is_stopped():
 		if current_scene.name == "lab_inicial":
 			pass
@@ -239,7 +244,8 @@ func _input(event: InputEvent) -> void:
 			attack_basic *= 2
 			
 			transformation_timer.start(transformation_limit * time_part)
-
+			
+					
 func update_energy_transformation(value: float = -10.0) -> void:
 	if type_of_body == TYPE_TRANSFORM.ROBOT:
 		if transformation_timer.time_left + 0.1 <= transformation_limit * (time_part - 0.1):
@@ -276,6 +282,9 @@ func is_attacking() -> bool:
 	return Input.is_action_just_pressed("attack")
 	
 func handle_sword_direction() -> void:
+	if current_scene.name == "lab_inicial":
+		return
+	
 	if not sword_animation_player.is_playing():
 		sword.hide()
 	
@@ -297,3 +306,11 @@ func handle_sword_direction() -> void:
 		sword.show()
 		
 		sword_animation_player.play("attack")
+
+func add_charge() -> void:
+	fire_charge += 1
+	fire_charge = clamp(fire_charge, 0, max_charge)
+	
+	emit_charge_update.emit(fire_charge)
+	
+	print(fire_charge) # debugging purposes
