@@ -23,6 +23,7 @@ var health_limit: float
 var energy_limit: float
 
 @onready var weapon: Node = $WeaponComponent
+@onready var sound_caster: AudioStreamPlayer2D = $CastSound
 
 @export var fire_charge: int = 0
 @export var max_charge: int = 3
@@ -169,8 +170,10 @@ func attack_ranged() -> void:
 			return
 		else:
 			change_charge(false)
+			sound_caster.playing = true
 			if type_of_body == TYPE_TRANSFORM.HUMAN:
 				weapon.shoot_flipflop(mouse_direction)
+				
 			elif type_of_body == TYPE_TRANSFORM.ROBOT:
 				weapon.shoot_fireball(mouse_direction)
 
