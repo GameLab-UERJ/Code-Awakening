@@ -1,8 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://djjnr6veblc63"]
+[gd_scene format=3 uid="uid://djjnr6veblc63"]
 
 [ext_resource type="Script" uid="uid://dmkwb0dnpb4bt" path="res://scripts/itens/health_gem.gd" id="1_2x3ei"]
-[ext_resource type="Texture2D" uid="uid://key6wy50j16n" path="res://assets/itens/spr_coin_roj.png" id="2_2x3ei"]
-[ext_resource type="AudioStream" uid="uid://fcsporqbn2ve" path="res://assets/sounds/coin.wav" id="3_qgmjs"]
+[ext_resource type="Texture2D" uid="uid://key6wy50j16n" path="res://Assets/itens/spr_coin_roj.png" id="2_2x3ei"]
+[ext_resource type="AudioStream" uid="uid://fcsporqbn2ve" path="res://Assets/sounds/coin.wav" id="3_qgmjs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l7xyf"]
 atlas = ExtResource("2_2x3ei")
@@ -141,28 +141,26 @@ _data = {
 &"pick_up": SubResource("Animation_bmfj1")
 }
 
-[node name="EnergyGem" type="Area2D"]
+[node name="EnergyGem" type="Area2D" unique_id=493118128]
 z_index = 10
 script = ExtResource("1_2x3ei")
 health = 20.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=779863894]
 position = Vector2(0.280769, -0.280769)
 scale = Vector2(0.589904, 0.589904)
 sprite_frames = SubResource("SpriteFrames_0x3am")
 animation = &"health_gem"
 autoplay = "health_gem"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1975894687]
 scale = Vector2(0.957163, 1)
 shape = SubResource("CircleShape2D_xktt5")
 
-[node name="PickupSound" type="AudioStreamPlayer2D" parent="."]
+[node name="PickupSound" type="AudioStreamPlayer2D" parent="." unique_id=1592994581]
 stream = ExtResource("3_qgmjs")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_xktt5")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2047099699]
+libraries/ = SubResource("AnimationLibrary_xktt5")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
