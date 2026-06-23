@@ -9,5 +9,6 @@ func _on_body_entered(body: Node2D) -> void:
 		animation_player.play("pick_up")
 		body.update_health(health)
 	
-		await animation_player.animation_finished
-		queue_free()
+		# We summon queue_free through animation_player
+		#await animation_player.animation_finished
+		#queue_free()
