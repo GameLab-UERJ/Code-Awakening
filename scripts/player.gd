@@ -22,6 +22,9 @@ var health_limit: float
 @export var energy: float = 100.0
 var energy_limit: float
 
+@onready var weapon: Node = $WeaponComponent
+@onready var sound_caster: AudioStreamPlayer2D = $CastSound
+
 @export var fire_charge: int = 0
 @export var max_charge: int = 3
 
@@ -40,6 +43,8 @@ var knockback_direction: Vector2 = Vector2.ZERO
 
 @onready var sword: Node2D = $Sword
 @onready var sword_animation_player: AnimationPlayer = $Sword/SwordAnimationPlayer
+
+var mouse_direction: Vector2 
 
 @onready var hitbox: Area2D = $Sword/Node2D/Sprite2D/Hitbox
 
@@ -157,7 +162,22 @@ func attack_melee(delta: float) -> void:
 		
 		attack_timer = 0
 
+func attack_ranged() -> void:
+	if current_scene.name == "lab_inicial":
+		return
+	else:
+		if fire_charge == 0:
+			return
+		else:
+			change_charge(false)
+			sound_caster.playing = true
+			if type_of_body == TYPE_TRANSFORM.HUMAN:
+				weapon.shoot_flipflop(mouse_direction)
+				
+			elif type_of_body == TYPE_TRANSFORM.ROBOT:
+				weapon.shoot_fireball(mouse_direction)
 
+		
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemy"):
 		enemy_in_range  = true
@@ -245,6 +265,9 @@ func _input(event: InputEvent) -> void:
 			
 			transformation_timer.start(transformation_limit * time_part)
 			
+	if event.is_action_pressed("shoot"):
+		attack_ranged()
+		
 					
 func update_energy_transformation(value: float = -10.0) -> void:
 	if type_of_body == TYPE_TRANSFORM.ROBOT:
@@ -287,9 +310,8 @@ func handle_sword_direction() -> void:
 	
 	if not sword_animation_player.is_playing():
 		sword.hide()
-	
-		var mouse_direction: Vector2 = (get_global_mouse_position() - global_position).normalized()
-
+		mouse_direction = (get_global_mouse_position() - global_position).normalized()
+				
 		if mouse_direction.x > 0 and animated_sprite.flip_h:
 			animated_sprite.flip_h = false
 		elif mouse_direction.x < 0 and not animated_sprite.flip_h:
@@ -307,10 +329,16 @@ func handle_sword_direction() -> void:
 		
 		sword_animation_player.play("attack")
 
-func add_charge() -> void:
-	fire_charge += 1
+func change_charge(add: bool) -> void:
+	if add == true:
+		fire_charge += 1
+	else:
+		fire_charge -= 1
+	
 	fire_charge = clamp(fire_charge, 0, max_charge)
-	
 	emit_charge_update.emit(fire_charge)
+
+
 	
-	print(fire_charge) # debugging purposes
+	
+	

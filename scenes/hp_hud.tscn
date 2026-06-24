@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bupv0jp74y4bh" path="res://Assets/UI/texturas/ProgressBar_06/BarV6_Bar.png" id="2_70rmd"]
 [ext_resource type="Texture2D" uid="uid://blerfdh3by2r1" path="res://Assets/UI/texturas/ProgressBar_06/BarV6_ProgressBar.png" id="3_kdqo8"]
 [ext_resource type="Texture2D" uid="uid://b57wewlw7tlj8" path="res://Assets/UI/texturas/ProgressBar_08/BarV8_Bar.png" id="4_pfayn"]
+[ext_resource type="Texture2D" uid="uid://bkd1aiyj1xilb" path="res://Assets/itens/spr_coin_orang.png" id="5_pfayn"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_bjr08"]
 
@@ -74,7 +75,7 @@ layout_mode = 2
 modulate = Color(1, 1, 1, 0.38039216)
 position = Vector2(-28, -2)
 scale = Vector2(2, 2)
-texture = SubResource("CompressedTexture2D_kdqo8")
+texture = ExtResource("5_pfayn")
 region_enabled = true
 region_rect = Rect2(-0.5, -0.4079132, 15.923679, 16.32218)
 
