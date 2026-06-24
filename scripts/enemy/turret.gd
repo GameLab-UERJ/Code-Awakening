@@ -15,6 +15,7 @@ var angle_to_target: float
 @export var health: float 
 @onready var health_bar: ProgressBar = $HealthBar
 
+@onready var drop_item: Node2D = $DropItem
 
 func _ready() -> void:
 	add_to_group("Enemy")
@@ -73,7 +74,7 @@ func _on_reload_timer_timeout() -> void:
 	ray_cast_2d.enabled = true
 
 
-func update_health(value: int) -> void:
+func update_health(value: float) -> void:
 	health += value
 
 	health_bar.value = health
@@ -86,4 +87,6 @@ func update_health(value: int) -> void:
 
 func _on_gun_animated_sprite_2d_animation_finished() -> void:
 	if gun_animated_sprite_2d.animation == "turret_die":
+		drop_item.drop_specific(0) # id 0 is fire_gem
+			
 		queue_free()
