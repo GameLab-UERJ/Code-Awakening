@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://b3hp1oud7lljk"]
+
+[ext_resource type="Texture2D" uid="uid://dhpgjeipqtlgf" path="res://Assets/Player/fireball/FB001.png" id="1_0fxfm"]
+[ext_resource type="Script" path="res://scenes/character/Player/fireball.gd" id="1_5yiae"]
+[ext_resource type="Texture2D" uid="uid://bv3vuvu6ou40a" path="res://Assets/Player/fireball/FB002.png" id="2_5yiae"]
+[ext_resource type="Texture2D" uid="uid://dvhh3xdupr4my" path="res://Assets/Player/fireball/FB003.png" id="3_x4gc2"]
+[ext_resource type="Texture2D" uid="uid://bc6pmqtve8udl" path="res://Assets/Player/fireball/FB004.png" id="4_ucu0o"]
+[ext_resource type="Texture2D" uid="uid://bfiuv3v5i2yhb" path="res://Assets/Player/fireball/FB005.png" id="5_4j11w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1x2a"]
+atlas = ExtResource("1_0fxfm")
+region = Rect2(19, 4, 36, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_724lw"]
+atlas = ExtResource("2_5yiae")
+region = Rect2(19, 4, 36, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gpg6k"]
+atlas = ExtResource("3_x4gc2")
+region = Rect2(18, 4, 36, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m64m5"]
+atlas = ExtResource("4_ucu0o")
+region = Rect2(18, 4, 36, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_twg5s"]
+atlas = ExtResource("5_4j11w")
+region = Rect2(23, 4, 32, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4r8c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k1x2a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_724lw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gpg6k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m64m5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_twg5s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0fxfm"]
+radius = 9.0
+
+[node name="Fireball" type="Area2D" unique_id=1668658848]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_5yiae")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1864951995]
+sprite_frames = SubResource("SpriteFrames_g4r8c")
+autoplay = "default"
+
+[node name="FireballHitbox" type="CollisionShape2D" parent="." unique_id=986303173]
+position = Vector2(4, 0)
+shape = SubResource("CircleShape2D_0fxfm")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
