@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://deva4fr12bg8v"]
+
+[ext_resource type="AudioStream" uid="uid://rg7uj6vxdmo3" path="res://Assets/sounds/explosion_small.wav" id="1_jaf5s"]
+
+[node name="CastSound" type="AudioStreamPlayer2D" unique_id=980201923]
+stream = ExtResource("1_jaf5s")
