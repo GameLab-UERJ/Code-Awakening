@@ -13,13 +13,10 @@ var last_direction: Vector2 = Vector2.ZERO
 var enemy_in_range = false
 
 signal emit_health_update(new_health: float)
-signal emit_energy_update(new_energy: float)
 signal emit_charge_update(new_charge: int)
 
 @export var health: float = 100.0
 var health_limit: float
-@export var energy: float = 100.0
-var energy_limit: float
 
 @onready var weapon: Node = $WeaponComponent
 @onready var transformer: Node = $TransformationComponent
@@ -44,15 +41,13 @@ var knockback_direction: Vector2 = Vector2.ZERO
 @onready var sword: Node2D = $Sword
 @onready var sword_animation_player: AnimationPlayer = $Sword/SwordAnimationPlayer
 
+var time_part: float = 1.0
+
 var mouse_direction: Vector2 
 
 @onready var hitbox: Area2D = $Sword/Node2D/Sprite2D/Hitbox
 
 @onready var hit_sound: AudioStreamPlayer2D = $HitSound
-
-@export var transformation_limit: float
-@onready var transformation_timer: Timer = $TransformationTimer
-var time_part: float = 1.0
 
 @onready var current_scene = get_parent()
 
@@ -65,8 +60,6 @@ func _ready() -> void:
 	change_player_speed()
 				
 	health_limit = health
-	
-	energy_limit = energy
 	
 	
 #func change_to(type_transformation : TYPE_TRANSFORM = TYPE_TRANSFORM.ROBOT) -> void:
@@ -122,7 +115,7 @@ func _physics_process(delta: float) -> void:
 	update_animation()
 	
 	#update_energy_transformation()
-	
+
 	move_and_slide()
 
 func update_animation() -> void:
@@ -195,9 +188,10 @@ func _on_hitbox_body_exited(body: Node2D) -> void:
 		
 		attack_timer = 0
 
+# someone should really look into making a component out of this
 func update_health(value: float) -> void:
 	if health <= health_limit and health >= 0.0:
-		if (health + value) > energy_limit:
+		if (health + value) > transformer.energy_limit:
 			health = health_limit
 			
 			time_part = 1.0
@@ -260,7 +254,7 @@ func play_hit_feedback() -> void:
 	
 func _input(event: InputEvent) -> void:
 	# player has transformed	
-	if event.is_action_pressed("transform") and transformation_timer.is_stopped():
+	if event.is_action_pressed("transform") and transformer.timer.is_stopped():
 		transformer.change_form(TYPE_TRANSFORM.ROBOT)
 	#if event.is_action_pressed("ui_accept") and transformation_timer.is_stopped():
 		#if current_scene.name == "lab_inicial":
@@ -281,23 +275,6 @@ func _input(event: InputEvent) -> void:
 		#if transformation_timer.time_left + 0.1 <= transformation_limit * (time_part - 0.1):
 			#update_energy(value)
  
-func update_energy(value: float = -10.0) -> void:
-	if energy <= energy_limit and energy >= 0.0:
-		if (energy + value) > energy_limit:
-			energy = energy_limit
-			
-			time_part = 1.0
-		elif (energy + value) < 0:
-			energy = 0.0
-			
-			time_part = 0.0
-		else:
-			energy += value
-			
-			time_part += value / 100
-
-		emit_energy_update.emit(energy)
-
 
 #func _on_change_timer_timeout() -> void:
 	#transformer.change_form(TYPE_TRANSFORM.HUMAN)
