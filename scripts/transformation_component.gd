@@ -21,6 +21,8 @@ var current_form: TYPE_TRANSFORM
 func _ready() -> void:
 	add_to_group("Transformer")
 	
+	energy_limit = energy
+	
 # player requested 
 func change_form(new_form: TYPE_TRANSFORM) -> void:
 	if player.current_scene.name == "lab_inicial":
@@ -58,7 +60,7 @@ func robot_timer():
 		
 func _on_timer_timeout() -> void:
 	timer.stop()
-		
+	
 	change_form(TYPE_TRANSFORM.HUMAN)
 	
 func _process(delta) -> void:
