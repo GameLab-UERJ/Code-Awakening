@@ -4,8 +4,8 @@ extends Area2D
 
 @onready var transformer = get_tree().get_first_node_in_group("Transformer")
 
-# time in seconds that will be added to transformation
-@export var added_energy: float = 1.0
+# energy that will be added to the transformation
+@export var added_energy: float = 20.0
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
