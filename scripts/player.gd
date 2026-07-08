@@ -100,8 +100,6 @@ func _physics_process(delta: float) -> void:
 	
 	update_animation()
 	
-	#update_energy_transformation()
-
 	move_and_slide()
 
 func update_animation() -> void:
