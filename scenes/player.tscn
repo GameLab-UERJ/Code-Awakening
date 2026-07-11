@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dmgcogjh3wh8w" path="res://Assets/enemy/Shadow.png" id="8_smehm"]
 [ext_resource type="AudioStream" uid="uid://c1rmukl1u783o" path="res://Assets/sounds/splat_quick.wav" id="9_ur7pv"]
 [ext_resource type="PackedScene" uid="uid://deva4fr12bg8v" path="res://scenes/character/Player/cast_sound.tscn" id="10_d2wvv"]
-[ext_resource type="PackedScene" uid="uid://coeo5w15rku7s" path="res://scenes/weapon_component.tscn" id="10_y4r1p"]
+[ext_resource type="PackedScene" uid="uid://dxypk1saliver" path="res://scenes/weapon_component.tscn" id="10_y4r1p"]
 [ext_resource type="PackedScene" uid="uid://cysc4mmfvo30c" path="res://scenes/transformation_component.tscn" id="12_3v2ag"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dt7fs"]
