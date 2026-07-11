@@ -224,7 +224,7 @@ radius = 8.0
 radius = 8.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lnmnu"]
-radius = 38.0
+radius = 66.0
 
 [node name="DroneMelee" type="CharacterBody2D" unique_id=468293005]
 z_index = 2
