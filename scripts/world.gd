@@ -3,7 +3,6 @@ extends Node2D
 var current_scene: String = "world"
 
 @onready var player: CharacterBody2D = $Environment/Player
-@onready var transformer = get_tree().get_first_node_in_group("Transformer")
 @onready var hp_hud: Node2D = $Environment/hp_hud
 
 @onready var block_cave_plaines: TileMapLayer = $Environment/Caves/CavePlaines/BlockCavePlaines
@@ -58,7 +57,7 @@ func change_scene(change_to: String) -> void:
 	
 	Global.health = player.health
 	
-	Global.energy = transformer.energy
+	Global.energy = player.energy
 	
 	match change_to:
 		"montain":

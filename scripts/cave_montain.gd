@@ -1,7 +1,6 @@
 extends Node2D
 
 @onready var player: CharacterBody2D = $Enviroment/Player
-@onready var transformer = get_tree().get_first_node_in_group("Transformer")
 @onready var hp_hud: Node2D = $Enviroment/hp_hud
 
 var current_scene: String = "cave_montain"
@@ -13,7 +12,7 @@ func _ready() -> void:
 	player.health = Global.health
 	
 	hp_hud._on_energy_update(Global.energy)
-	transformer.energy = Global.energy
+	player.energy = Global.energy
 
 
 func _process(delta: float) -> void:
@@ -24,7 +23,7 @@ func _process(delta: float) -> void:
 func _on_world_montain_top_body_entered(body: Node2D) -> void:
 	Global.health = player.health
 	
-	Global.energy = transformer.energy
+	Global.energy = player.energy
 	
 	if body.is_in_group("Player"):
 		change_scene = true
