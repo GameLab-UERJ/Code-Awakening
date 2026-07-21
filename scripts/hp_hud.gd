@@ -35,5 +35,5 @@ func _on_charge_update(amount: int) -> void:
 		else:
 			gems[i].modulate.a = 0.4
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	VictoryCounter.text = "%d / 2" % Global.victories
