@@ -52,8 +52,8 @@ func def_spawn_position() -> Vector2:
 func _drop_item() -> void:
 	total_weight = 0.0
 	
-	for weight in item_drop_chances:
-		total_weight += weight
+	for w in item_drop_chances:
+		total_weight += w
 		
 	rand = randf_range(0.0, total_weight)
 	
@@ -72,7 +72,10 @@ func _drop_item() -> void:
 			item.global_position = def_spawn_position()
 			
 			get_tree().current_scene.call_deferred("add_child", item)
-			
+						
 			break
 			
-		
+func drop_specific(id: int) -> void:
+	var new_item = item_drop[id].instantiate()
+	new_item.global_position = def_spawn_position()
+	get_tree().current_scene.add_child(new_item)

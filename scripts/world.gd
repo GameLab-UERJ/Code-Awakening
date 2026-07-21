@@ -4,6 +4,7 @@ var current_scene: String = "world"
 
 @onready var player: CharacterBody2D = $Environment/Player
 @onready var hp_hud: Node2D = $Environment/hp_hud
+@onready var transformer = get_tree().get_first_node_in_group("Transformer")
 
 @onready var block_cave_plaines: TileMapLayer = $Environment/Caves/CavePlaines/BlockCavePlaines
 @onready var block_cave_montain: TileMapLayer = $Environment/Caves/CaveMontain/BlockCaveMontain
@@ -37,7 +38,7 @@ func _ready() -> void:
 		block_cave_montain.enabled = true
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Global.block_cave_montains and Global.block_cave_plaines:
 		TransitionScene.change_scene("res://scenes/ui/endgame_screen.tscn")
 
@@ -57,7 +58,7 @@ func change_scene(change_to: String) -> void:
 	
 	Global.health = player.health
 	
-	Global.energy = player.energy
+	Global.energy = transformer.energy
 	
 	match change_to:
 		"montain":
