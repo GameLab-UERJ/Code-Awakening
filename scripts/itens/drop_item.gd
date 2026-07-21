@@ -72,7 +72,10 @@ func _drop_item() -> void:
 			item.global_position = def_spawn_position()
 			
 			get_tree().current_scene.call_deferred("add_child", item)
-			
+						
 			break
 			
-		
+func drop_specific(id: int) -> void:
+	var item = item_drop[id].instantiate()
+	item.global_position = def_spawn_position()
+	get_tree().current_scene.add_child(item)
