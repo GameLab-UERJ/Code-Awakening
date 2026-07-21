@@ -38,7 +38,7 @@ https://ansimuz.itch.io/explosion-animations-pack
 
 https://papoycore.itch.io/free-drone
 
-- splat_quick.wav por Chequered Ink
+- splat_quick.wav e explosion_small.wav por Chequered Ink
 
 https://ci.itch.io/400-sounds-pack?download
 
