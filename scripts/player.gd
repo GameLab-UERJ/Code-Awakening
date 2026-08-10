@@ -62,12 +62,14 @@ func _ready() -> void:
 	health_limit = health
 	
 	
-# change this to match if it gets messy
+# component? match?
 func change_player_speed() -> void:
-	if current_scene.name == "lab_inicial" and Global.has_ever_died == true:
+	if current_scene.name == "lab_inicial" and not Global.has_ever_died:
 		speed_multiplier = 5.0
+	elif current_scene.name == "lab_inicial" and Global.has_ever_died:
+		speed_multiplier = 10.0
 	else:
-		pass		
+		return		
 	
 func _physics_process(delta: float) -> void:
 	die()
