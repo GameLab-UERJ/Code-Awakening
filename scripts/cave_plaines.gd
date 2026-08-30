@@ -12,7 +12,7 @@ func _ready() -> void:
 	player.health = Global.health
 	
 	hp_hud._on_energy_update(Global.energy)
-	player.energy = Global.energy
+	player.transformer.energy = Global.energy
 
 
 func _process(delta: float) -> void:
@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 func _on_world_plaines_body_entered(body: Node2D) -> void:
 	Global.health = player.health
 	
-	Global.energy = player.energy
+	Global.energy = player.transformer.energy
 	
 	if body.is_in_group("Player"):
 		change_scene = true

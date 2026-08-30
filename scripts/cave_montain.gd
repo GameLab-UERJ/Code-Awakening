@@ -23,7 +23,7 @@ func _process(_delta: float) -> void:
 func _on_world_montain_top_body_entered(body: Node2D) -> void:
 	Global.health = player.health
 	
-	Global.energy = player.energy
+	Global.energy = player.transformer.energy
 	
 	if body.is_in_group("Player"):
 		change_scene = true
