@@ -359,6 +359,7 @@ shape = SubResource("RectangleShape2D_ywssb")
 
 [node name="Player" parent="Enviroment" unique_id=1797035392 instance=ExtResource("5_8j45y")]
 position = Vector2(296, 309)
+attack_basic = -25.0
 
 [node name="Camera2D" type="Camera2D" parent="Enviroment/Player" unique_id=1127858227]
 visible = false
