@@ -61,6 +61,8 @@ func _ready() -> void:
 				
 	health_limit = health
 	
+	last_direction.x = 1
+	last_direction.y = 1
 	
 # component? match?
 func change_player_speed() -> void:
@@ -105,7 +107,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func update_animation() -> void:
-	# invert direction do sprite righ to left
+	# invert direction do sprite right to left
 	if direction.y == 0:
 		if direction.x > 0:
 			animated_sprite.flip_h = false

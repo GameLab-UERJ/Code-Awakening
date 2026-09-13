@@ -52,6 +52,7 @@ tile_set = SubResource("TileSet_skxu7")
 process_mode = 3
 position = Vector2(8, 451)
 scale = Vector2(5, 5)
+attack_basic = -25.0
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=315422898]
 
