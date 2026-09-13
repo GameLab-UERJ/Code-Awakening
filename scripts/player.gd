@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
-enum TYPE_TRANSFORM{ROBOT,HUMAN}
-var type_of_body: TYPE_TRANSFORM
+enum TYPE_TRANSFORM{HUMAN,ROBOT}
 
 @onready var human_animated_sprite: AnimatedSprite2D = $HumanAnimatedSprite
 @onready var robot_animated_sprite: AnimatedSprite2D = $RobotAnimatedSprite
@@ -14,15 +13,13 @@ var last_direction: Vector2 = Vector2.ZERO
 var enemy_in_range = false
 
 signal emit_health_update(new_health: float)
-signal emit_energy_update(new_energy: float)
 signal emit_charge_update(new_charge: int)
 
 @export var health: float = 100.0
 var health_limit: float
-@export var energy: float = 100.0
-var energy_limit: float
 
 @onready var weapon: Node = $WeaponComponent
+@onready var transformer: Node = $TransformationComponent
 @onready var sound_caster: AudioStreamPlayer2D = $CastSound
 
 @export var fire_charge: int = 0
@@ -44,42 +41,26 @@ var knockback_direction: Vector2 = Vector2.ZERO
 @onready var sword: Node2D = $Sword
 @onready var sword_animation_player: AnimationPlayer = $Sword/SwordAnimationPlayer
 
+var time_part: float = 1.0
+
 var mouse_direction: Vector2 
 
 @onready var hitbox: Area2D = $Sword/Node2D/Sprite2D/Hitbox
 
 @onready var hit_sound: AudioStreamPlayer2D = $HitSound
 
-@export var transformation_limit: float
-@onready var transformation_timer: Timer = $TransformationTimer
-var time_part: float = 1.0
-
 @onready var current_scene = get_parent()
 
 func _ready() -> void:
 	add_to_group("Player")
 	
-	change_to(TYPE_TRANSFORM.HUMAN)
+	transformer.form_changed.connect(_on_form_change)
+	transformer.change_form(TYPE_TRANSFORM.HUMAN)
+	
 	change_player_speed()
 				
 	health_limit = health
 	
-	energy_limit = energy
-	
-	
-func change_to(type_transformation : TYPE_TRANSFORM = TYPE_TRANSFORM.ROBOT) -> void:
-	if type_transformation == TYPE_TRANSFORM.ROBOT:
-		human_animated_sprite.visible = false
-		
-		animated_sprite = robot_animated_sprite
-	elif type_transformation == TYPE_TRANSFORM.HUMAN:
-		robot_animated_sprite.visible = false
-		
-		animated_sprite = human_animated_sprite
-	
-	type_of_body = type_transformation
-		
-	animated_sprite.visible = true
 	
 # change this to match if it gets messy
 func change_player_speed() -> void:
@@ -118,8 +99,6 @@ func _physics_process(delta: float) -> void:
 	attack_melee(delta)
 	
 	update_animation()
-	
-	update_energy_transformation()
 	
 	move_and_slide()
 
@@ -171,10 +150,10 @@ func attack_ranged() -> void:
 		else:
 			change_charge(false)
 			sound_caster.playing = true
-			if type_of_body == TYPE_TRANSFORM.HUMAN:
+			if transformer.current_form == TYPE_TRANSFORM.HUMAN:
 				weapon.shoot_flipflop(mouse_direction)
 				
-			elif type_of_body == TYPE_TRANSFORM.ROBOT:
+			elif transformer.current_form == TYPE_TRANSFORM.ROBOT:
 				weapon.shoot_fireball(mouse_direction)
 
 		
@@ -193,9 +172,10 @@ func _on_hitbox_body_exited(body: Node2D) -> void:
 		
 		attack_timer = 0
 
+# someone should really look into making a component out of this
 func update_health(value: float) -> void:
 	if health <= health_limit and health >= 0.0:
-		if (health + value) > energy_limit:
+		if (health + value) > transformer.energy_limit:
 			health = health_limit
 			
 			time_part = 1.0
@@ -239,11 +219,14 @@ func apply_knockback(direction_2: Vector2, force: float, knockback_duration: flo
 	
 	knockback_timer = knockback_duration
 
+func _on_form_change(new_form) -> void:
+	transformer.current_form = new_form
+
 # the player has suffered damage
 func play_hit_feedback() -> void:
 		hit_sound.play() # temporary asset?
 	
-		if type_of_body == TYPE_TRANSFORM.HUMAN:
+		if transformer.current_form == TYPE_TRANSFORM.HUMAN:
 			human_animated_sprite.modulate = Color(1,0,0.3)
 			await get_tree().create_timer(0.2).timeout
 			human_animated_sprite.modulate = Color(1,1,1)
@@ -255,51 +238,12 @@ func play_hit_feedback() -> void:
 	
 func _input(event: InputEvent) -> void:
 	# player has transformed	
-	if event.is_action_pressed("ui_accept") and transformation_timer.is_stopped():
-		if current_scene.name == "lab_inicial":
-			pass
-		else:
-			change_to(TYPE_TRANSFORM.ROBOT)
-			
-			attack_basic *= 2
-			
-			transformation_timer.start(transformation_limit * time_part)
+	if event.is_action_pressed("transform") and transformer.timer.is_stopped():
+		transformer.change_form(TYPE_TRANSFORM.ROBOT)
 			
 	if event.is_action_pressed("shoot"):
 		attack_ranged()
 		
-					
-func update_energy_transformation(value: float = -10.0) -> void:
-	if type_of_body == TYPE_TRANSFORM.ROBOT:
-		if transformation_timer.time_left + 0.1 <= transformation_limit * (time_part - 0.1):
-			update_energy(value)
- 
-func update_energy(value: float = -10.0) -> void:
-	if energy <= energy_limit and energy >= 0.0:
-		if (energy + value) > energy_limit:
-			energy = energy_limit
-			
-			time_part = 1.0
-		elif (energy + value) < 0:
-			energy = 0.0
-			
-			time_part = 0.0
-		else:
-			energy += value
-			
-			time_part += value / 100
-
-		emit_energy_update.emit(energy)
-
-
-func _on_change_timer_timeout() -> void:
-	change_to(TYPE_TRANSFORM.HUMAN)
-	
-	update_energy()
-	
-	transformation_timer.stop()
-	
-	attack_basic *= 1
 
 func is_attacking() -> bool:
 	return Input.is_action_just_pressed("attack")

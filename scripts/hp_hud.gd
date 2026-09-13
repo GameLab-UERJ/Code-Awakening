@@ -8,13 +8,16 @@ extends Node2D
 var gems: Array = []
 
 @onready var player = get_tree().get_first_node_in_group("Player")
+@onready var transformer = get_tree().get_first_node_in_group("Transformer")
+
 
 func _ready() -> void:
 	# handle player stat changes
 	player.emit_health_update.connect(_on_health_update)
-	player.emit_energy_update.connect(_on_energy_update)
+	transformer.emit_energy_update.connect(_on_energy_update)
 	player.emit_charge_update.connect(_on_charge_update)
 	
+	# reset gems
 	gems = special_bar.get_children()
 	for gem in gems:
 		gem.modulate.a = 0.4
@@ -32,5 +35,5 @@ func _on_charge_update(amount: int) -> void:
 		else:
 			gems[i].modulate.a = 0.4
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	VictoryCounter.text = "%d / 2" % Global.victories

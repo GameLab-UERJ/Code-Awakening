@@ -357,11 +357,9 @@ position = Vector2(297, 319)
 position = Vector2(-1, 7.625)
 shape = SubResource("RectangleShape2D_ywssb")
 
-[node name="hp_hud" parent="Enviroment" unique_id=1203084567 instance=ExtResource("4_b3yv3")]
-position = Vector2(355, 301)
-
 [node name="Player" parent="Enviroment" unique_id=1797035392 instance=ExtResource("5_8j45y")]
 position = Vector2(296, 309)
+attack_basic = -25.0
 
 [node name="Camera2D" type="Camera2D" parent="Enviroment/Player" unique_id=1127858227]
 visible = false
@@ -371,6 +369,9 @@ limit_top = 125
 limit_right = 306
 limit_bottom = 330
 position_smoothing_enabled = true
+
+[node name="hp_hud" parent="Enviroment" unique_id=1203084567 instance=ExtResource("4_b3yv3")]
+position = Vector2(355, 301)
 
 [node name="Enemy" type="Node2D" parent="Enviroment" unique_id=223129143]
 

@@ -236,7 +236,7 @@ height = 14.0
 radius = 9.05539
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lnmnu"]
-radius = 38.0
+radius = 67.00746
 
 [node name="Magpie" type="CharacterBody2D" unique_id=988759689]
 z_index = 2

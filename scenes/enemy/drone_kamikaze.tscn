@@ -235,10 +235,10 @@ animations = [{
 radius = 7.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7d178"]
-radius = 17.464249
+radius = 12.684199
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lnmnu"]
-radius = 79.0
+radius = 134.01492
 
 [node name="DroneKamikaze" type="CharacterBody2D" unique_id=1879584609]
 z_index = 2

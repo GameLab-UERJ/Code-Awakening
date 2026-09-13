@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://6heqqksch5sb"]
+
+[ext_resource type="Script" uid="uid://b2wt5876yigsh" path="res://scripts/itens/drop_item.gd" id="1_x78if"]
+[ext_resource type="PackedScene" uid="uid://btgem6t5njodn" path="res://scenes/itens/energy_gem.tscn" id="2_gctdi"]
+[ext_resource type="PackedScene" uid="uid://djjnr6veblc63" path="res://scenes/itens/health_gem.tscn" id="3_8mdbm"]
+[ext_resource type="PackedScene" uid="uid://dldfni670i45v" path="res://scenes/itens/fire_gem.tscn" id="4_7d5l6"]
+
+[node name="DropItem" type="Node2D" unique_id=333101014]
+script = ExtResource("1_x78if")
+item_drop = Array[PackedScene]([ExtResource("2_gctdi"), ExtResource("3_8mdbm"), ExtResource("4_7d5l6")])
+item_drop_chances = Array[float]([30.0, 30.0, 30.0])
